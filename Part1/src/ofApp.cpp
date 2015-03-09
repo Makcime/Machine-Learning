@@ -5,8 +5,8 @@
 void ofApp::setup(){
 	// creation de tout les noeuds sur la carte
 	ofToggleFullscreen();
-	gui.setup();
-	gui.add(filled.setup("fill", true));
+	gui_setup();
+	// gui.add(filled.setup("fill", true));
 
 	myfont.loadFont("arial.ttf", 11);
 
@@ -35,18 +35,62 @@ void ofApp::setup(){
 	vertex * start = map[4];
 	vertex * next;
 	
-		next = start->nextCon();
-		printf("%d - ", next->getId() );
-		printf("%d - ", &start);
-		getchar();
+	next = start->nextCon();
 
 	vertex * goal = map[15];
 
 	// dfs2(start, goal);
-	nds(start, goal);
+	// nds(start, goal);
 	// dfs(start, goal);
-	// print_matrix();
+	print_matrix();
+	getchar();
 	// print_matrix_as_csv();
+
+}
+
+//--------------------------------------------------------------
+void ofApp::gui_setup(){
+	ofSetVerticalSync(true); 
+	ofEnableSmoothing();
+    drawPadding = false;
+    gui = new ofxUICanvas();
+
+    gui->addSpacer();
+    
+    vector<string> vnames; vnames.push_back("DFS"); 
+    vnames.push_back("NDS"); 
+    vnames.push_back("Greedy Search");
+    gui->addLabel("Algo ", OFX_UI_FONT_MEDIUM);
+    ofxUIRadio *radio = gui->addRadio("VR", vnames, OFX_UI_ORIENTATION_VERTICAL);
+    radio->activateToggle("DFS");
+
+    gui->addSpacer();
+    gui->addLabel("Start point"); 
+    gui->addTextInput("MEDIUM TEXTINPUT", "0", OFX_UI_FONT_MEDIUM);
+
+    gui->addSpacer();
+    gui->addLabel("Goal"); 
+    gui->addTextInput("MEDIUM TEXTINPUT", "15", OFX_UI_FONT_MEDIUM);
+        
+    gui->addSpacer();
+    gui->addLabelToggle("RUN !", false);
+
+    gui->addSpacer();
+
+    buffer = new float[256];     
+    for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0); }
+    
+	gui->addLabel("WAVEFORM GRAPH");     
+	gui->addWaveform("WAVEFORM", buffer, 256, 0.0, 1.0);
+
+    gui->addLabel("SPECTRUM GRAPH");        
+    gui->addSpectrum("SPECTRUM", buffer, 256, 0.0, 1.0);
+
+    gui->addSpacer();
+
+    gui->autoSizeToFitWidgets();
+    ofAddListener(gui->newGUIEvent,this,&ofApp::guiEvent);
+    
 
 }
 
@@ -166,7 +210,7 @@ void ofApp::dfs2(vertex * start, vertex * goal){
 		for (vector<vertex *>::iterator i = path.begin(); i != path.end(); ++i){
 			vertex * plop;		
 			plop = *i;
-			printf("%d - ", plop->getId() );
+			printf("%d - ", plop->getId());
 		}
 		printf("\n");
 	}
@@ -191,8 +235,8 @@ void ofApp::nds(vertex * start, vertex * goal){
 		printf("\npath : [");
 		for (int j = 0; j < path.size(); ++j)
 			printf("%d,", path[j]->getId() );
-			printf("]");getchar();
-			// printf("]\n");
+			// printf("]");getchar();
+			printf("]\n");
 		
 		vertex * plop ;
 		plop = path.back();
@@ -216,8 +260,8 @@ void ofApp::nds(vertex * start, vertex * goal){
 				printf("\tNEW path : [");
 				for (int j = 0; j < new_path.size(); ++j)
 					printf("%d,", new_path[j]->getId() );
-				printf("]");getchar();
-				// printf("]\n");
+				// printf("]");getchar();
+				printf("]\n");
 				
 				if(next->getId() == goal->getId()){
 					goal_reached = true;
@@ -303,13 +347,12 @@ void ofApp::print_matrix_as_csv(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0, ofGetElapsedTimef()); }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-		// gui.draw();
-
+//*
 	int pitch = ofGetHeight()/ (SQRT_SIZE+1)	;
 
 	int delatax = pitch ;
@@ -339,8 +382,72 @@ void ofApp::draw(){
 
 	}
 
+//*/
 
 
+}
+
+//--------------------------------------------------------------
+void ofApp::guiEvent(ofxUIEventArgs &e)
+{
+	string name = e.widget->getName(); 
+	int kind = e.widget->getKind(); 
+    
+    if(kind == OFX_UI_WIDGET_BUTTON)
+    {
+        ofxUIButton *button = (ofxUIButton *) e.widget; 
+        cout << name << "\t value: " << button->getValue() << endl;         
+    }
+    else if(kind == OFX_UI_WIDGET_TOGGLE)
+    {
+        ofxUIToggle *toggle = (ofxUIToggle *) e.widget; 
+        cout << name << "\t value: " << toggle->getValue() << endl;             
+    }
+    else if(kind == OFX_UI_WIDGET_IMAGEBUTTON)
+    {
+        ofxUIImageButton *button = (ofxUIImageButton *) e.widget; 
+        cout << name << "\t value: " << button->getValue() << endl;                 
+    }
+    else if(kind == OFX_UI_WIDGET_IMAGETOGGLE)
+    {
+        ofxUIImageToggle *toggle = (ofxUIImageToggle *) e.widget; 
+        cout << name << "\t value: " << toggle->getValue() << endl;                 
+    }
+	else if(kind == OFX_UI_WIDGET_LABELBUTTON)
+    {
+        ofxUILabelButton *button = (ofxUILabelButton *) e.widget; 
+        cout << name << "\t value: " << button->getValue() << endl;                 
+    }
+    else if(kind == OFX_UI_WIDGET_LABELTOGGLE)
+    {
+        ofxUILabelToggle *toggle = (ofxUILabelToggle *) e.widget; 
+        cout << name << "\t value: " << toggle->getValue() << endl;                 
+    }
+	else if(name == "B1")
+	{
+        ofxUIButton *button = (ofxUIButton *) e.widget; 
+        cout << "value: " << button->getValue() << endl; 
+	}
+    else if(name == "B2")
+    {
+        ofxUIButton *button = (ofxUIButton *) e.widget; 
+        cout << "value: " << button->getValue() << endl;         
+    }
+    else if(name == "T1")
+    {
+        ofxUIToggle *toggle = (ofxUIToggle *) e.widget; 
+        cout << "value: " << toggle->getValue() << endl;     
+    }
+    else if(name == "T2")
+    {
+        ofxUIToggle *toggle = (ofxUIToggle *) e.widget; 
+        cout << "value: " << toggle->getValue() << endl;     
+    }
+}
+//--------------------------------------------------------------
+void ofApp::exit()
+{
+    delete gui; 
 }
 
 //--------------------------------------------------------------
@@ -349,6 +456,9 @@ void ofApp::keyPressed(int key){
     {
     case 'f':
         ofToggleFullscreen();
+        break;
+    case 'g':
+		gui->toggleVisible(); 
         break;
     default:
         break;
