@@ -8,7 +8,7 @@ void ofApp::setup(){
 	gui_setup();
 	// gui.add(filled.setup("fill", true));
 
-	myfont.loadFont("arial.ttf", 11);
+	// myfont.loadFont("arial.ttf", 11);
 
 	myGraph = new graph();
 
@@ -205,7 +205,7 @@ void ofApp::gui_setup(){
 	// 				}
 	// 			}
 	// 		}
-	// 	}
+	// 	} 
 
 	// 	if(goal_reached == true){
 	// 		path = dfs_stack.top(); // remove the first path from the QUEUE (FILE);
@@ -345,7 +345,7 @@ void ofApp::gui_setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0, ofGetElapsedTimef()); }
+    // for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0, ofGetElapsedTimef()); }
 }
 
 //--------------------------------------------------------------
@@ -458,6 +458,9 @@ void ofApp::keyPressed(int key){
         break;
     case 'g':
 		gui->toggleVisible(); 
+        break;
+    case 'n':
+		myGraph->next_hop(); 
         break;
     default:
         break;

@@ -49,12 +49,13 @@ public:
 
 	int getId();
     int getConCnt();
-    
+
     void setCheck(bool state);
     bool isChecked();
 
     vertex* nextCon();
     vertex* nextCon_reverse();
+    vector<int> getIds();
 
     void setPosition();
     point getPosition();

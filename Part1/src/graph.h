@@ -19,10 +19,14 @@
 #define SQRT_SIZE 7
 #define	FILEPATH "../data/matrix.csv"
 
+ #define DFS 1
+ #define NDS 2
+ #define GS 3
+
 class graph
 {
 private:
-	vector < vertex * > map, path_found, new_path;
+	vector < vertex * > map, path_found, path;
 	vector < vector<vertex*> > file;
 
 	vertex *start, *goal;
@@ -31,6 +35,8 @@ private:
 
 	ofTrueTypeFont myfont;
 
+	int algoSelected;
+
 
 	// vector < path > file;
 
@@ -38,7 +44,8 @@ public:
 	graph();
 	~graph();
 
-	vector <vertex *> compute_hop_dfs();
+	// vector <vertex *> compute_hop_dfs();
+	void next_hop();
 	vector <vertex *> compute_hop_nds();
 
 	void print_map_as_matrix();

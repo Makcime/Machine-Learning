@@ -74,3 +74,12 @@ int vertex::getConCnt(){
 	return (int) connected.size();
 }
 
+vector<int> vertex::getIds(){
+	vector<int> v;
+	for (int i = 0; i < connected.size(); ++i)
+		v.push_back(connected[i].node->getId());
+
+	return v;
+}
+
+
