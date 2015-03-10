@@ -9,12 +9,17 @@
 #ifndef VERTEX		
 #define VERTEX	
 
+using namespace std;
+
 #include <vector>
 #include <string>
 #include <algorithm>
+// #include "ofApp.h"
 
-using namespace std;
-
+struct point
+{
+    float x, y;
+};
 
 class vertex    
 {
@@ -25,13 +30,15 @@ struct connection
 	int weight;
 };
 
+
 private:
     // string name;
 	// vector < vertex * > connected;
 	vector < connection > connected;
 	bool check;
-
 	int indice;
+    connection con;
+    point position;
 
 public:
     vertex();
@@ -41,14 +48,18 @@ public:
     int is_connected(vertex * con);
 
 	int getId();
-
-
+    int getConCnt();
+    
     void setCheck(bool state);
     bool isChecked();
 
     vertex* nextCon();
     vertex* nextCon_reverse();
 
+    void setPosition();
+    point getPosition();
+
+    void draw();
 
 };
 

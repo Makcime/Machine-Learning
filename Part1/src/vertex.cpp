@@ -69,3 +69,8 @@ vertex* vertex::nextCon_reverse(){
 int vertex::getId(){
 	return indice;
 }
+
+int vertex::getConCnt(){
+	return (int) connected.size();
+}
+
