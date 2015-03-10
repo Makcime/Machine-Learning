@@ -97,4 +97,13 @@ point vertex::getPosition(){
 	return position;
 }
 
+vector<point> vertex::getNeighbours(){
+	vector<point> v;
+	for (int i = 0; i < connected.size(); ++i)
+		v.push_back(connected[i].node->getPosition());
+
+	return v;	
+}
+
+
 

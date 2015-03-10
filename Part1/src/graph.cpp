@@ -37,7 +37,7 @@ graph::graph(){
 	start->setCheck(true);
 	goalReached = false;
 
-	algoSelected = DFS;
+	algoSelected = NDS;
 
 }
 
@@ -59,6 +59,16 @@ void graph::draw(){
 		int id = map[i]->getId();
 		if (map[i]->getConCnt()){
 			stringstream ss;
+			
+			// drawing lines :
+		   	int _x, _y; 
+		    for (int i = 0; i < v.size(); ++i)
+		    {
+		    	_x = v[i].x;
+		    	_y = v[i].y;
+		    	ofLine(x, y, _x, _y);
+		    }
+
 			ofFill();
 		    // ofSetColor(ofColor(ofRandom(0, 255), ofRandom(0, 255),
 	     //                ofRandom(0, 255)));
@@ -76,8 +86,9 @@ void graph::draw(){
 	    	ofSetColor(ofColor::black);
 	    	ss << id;
 		    myfont.drawString(ss.str(), x,y);
-	    // ss.str("");
-	    // ss.clear();
+			
+			vector<point> v = map[i]->getNeighbours();
+
 		}	
 
 	}

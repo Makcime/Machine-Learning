@@ -57,6 +57,7 @@ public:
     vertex* nextCon();
     vertex* nextCon_reverse();
     vector<int> getIds();
+    vector<point> getNeighbours();
 
     void setPosition(int h, int w, int map_size, int sqrt_size);
     point getPosition();
