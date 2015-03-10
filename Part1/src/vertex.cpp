@@ -4,8 +4,9 @@ vertex::vertex(){
 	
 }
 
-vertex::vertex(int i){
+vertex::vertex(int i, int h, int w, int map_size, int sqrt_size){
 	indice = i;
+	setPosition(h, w, map_size, sqrt_size);
 }
 
 
@@ -80,6 +81,20 @@ vector<int> vertex::getIds(){
 		v.push_back(connected[i].node->getId());
 
 	return v;
+}
+
+void vertex::setPosition(int h, int w, int map_size, int sqrt_size){
+	int pitch = h/ (sqrt_size+1);
+	int delatax = pitch ;
+
+	int delatay = (w - h) /2 + pitch;
+
+	position.x = (indice%sqrt_size) * pitch + delatay;
+	position.y = (indice/sqrt_size) * pitch + delatax;
+}
+
+point vertex::getPosition(){
+	return position;
 }
 
 

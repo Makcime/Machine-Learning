@@ -55,6 +55,8 @@ public:
 
 	void draw();
 
+	void resetPositions(int w, int h);
+
 };
 
 #endif

@@ -6,7 +6,7 @@ graph::graph(){
 	myfont.loadFont("arial.ttf", 11);
 
 	for (int i = 0; i < MAP_SIZE; ++i)
-		map.push_back(new vertex(i));
+		map.push_back(new vertex(i, ofGetHeight(), ofGetWidth(), MAP_SIZE, SQRT_SIZE));
 
 	ofFile csv = ofFile(FILEPATH);
 	cout << csv.getEnclosingDirectory() << endl;
@@ -50,19 +50,15 @@ graph::~graph(){
 //--------------------------------------------------------------
 
 void graph::draw(){
-	int pitch = ofGetHeight()/ (SQRT_SIZE+1);
-	int delatax = pitch ;
-	int delatay = (ofGetWidth() - ofGetHeight()) /2 + pitch;
-
 	for(int i = 0; i < MAP_SIZE; ++i)
 	{
+		point p = map[i]->getPosition();
+		int x = p.x;
+		int y = p.y;
+
 		int id = map[i]->getId();
 		if (map[i]->getConCnt()){
 			stringstream ss;
-
-			int x = (id%SQRT_SIZE) * pitch + delatay;
-			int y = (id/SQRT_SIZE) * pitch + delatax;
-
 			ofFill();
 		    // ofSetColor(ofColor(ofRandom(0, 255), ofRandom(0, 255),
 	     //                ofRandom(0, 255)));
@@ -88,9 +84,9 @@ void graph::draw(){
 
 	if(goalReached){
 		for (int i = 0; i < path_found.size(); ++i){
-			int id = path_found[i]->getId();
-			int x = (id%SQRT_SIZE) * pitch + delatay;
-			int y = (id/SQRT_SIZE) * pitch + delatax;
+			point p = path_found[i]->getPosition();
+			int x = p.x;
+			int y = p.y;
 			ofFill();
 	    	ofSetColor(ofColor::red);
 	    	ofCircle(x, y, 5);
@@ -227,4 +223,9 @@ void graph::print_matrix_as_csv(){
 		}
 		printf("\n");
 	}
+}
+
+void graph::resetPositions(int w, int h){
+	for (int i = 0; i < map.size(); ++i)
+		map[i]->setPosition(h, w, MAP_SIZE, SQRT_SIZE);
 }

@@ -18,7 +18,7 @@ using namespace std;
 
 struct point
 {
-    float x, y;
+    int x, y;
 };
 
 class vertex    
@@ -42,10 +42,11 @@ private:
 
 public:
     vertex();
-    vertex(int i);
+    vertex(int i, int h, int w, int map_size, int sqrt_size);
     void add_connection(vertex * con, int weight);
     void add_connection(vertex * con);
     int is_connected(vertex * con);
+
 
 	int getId();
     int getConCnt();
@@ -57,7 +58,7 @@ public:
     vertex* nextCon_reverse();
     vector<int> getIds();
 
-    void setPosition();
+    void setPosition(int h, int w, int map_size, int sqrt_size);
     point getPosition();
 
     void draw();
