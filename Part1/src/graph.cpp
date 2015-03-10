@@ -39,6 +39,8 @@ graph::graph(){
 
 	algoSelected = NDS;
 
+	computeHeuristic();
+
 }
 
 //--------------------------------------------------------------
@@ -52,6 +54,8 @@ graph::~graph(){
 void graph::draw(){
 	for(int i = 0; i < MAP_SIZE; ++i)
 	{
+		vector<point> v = map[i]->getNeighbours();
+		
 		point p = map[i]->getPosition();
 		int x = p.x;
 		int y = p.y;
@@ -84,10 +88,9 @@ void graph::draw(){
 	    	ofCircle(x, y, 5);
 
 	    	ofSetColor(ofColor::black);
-	    	ss << id;
+	    	ss << map[i]->getHeuristic();
 		    myfont.drawString(ss.str(), x,y);
 			
-			vector<point> v = map[i]->getNeighbours();
 
 		}	
 
@@ -239,4 +242,36 @@ void graph::print_matrix_as_csv(){
 void graph::resetPositions(int w, int h){
 	for (int i = 0; i < map.size(); ++i)
 		map[i]->setPosition(h, w, MAP_SIZE, SQRT_SIZE);
+}
+
+void graph::resetGraph(){
+	for (int i = 0; i < MAP_SIZE; ++i){
+		map[i]->setCheck(false);
+	}
+	goalReached = false;
+	path_found.clear();
+	path.clear();
+	file.clear();
+
+	start = map[0];
+	goal = map[48];
+
+	path.push_back(start);
+	file.push_back(path);
+	start->setCheck(true);
+	goalReached = false;
+
+	algoSelected = NDS;
+};
+
+
+void graph::computeHeuristic(){
+	point p1, p2;
+	int heuristic;
+	for (int i = 0; i < MAP_SIZE; ++i){
+		p1 = map[i]->getPosition();
+		p2 = goal->getPosition();
+		heuristic = (int) sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+		map[i]->setHeuristic(heuristic);
+	}
 }

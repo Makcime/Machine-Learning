@@ -105,5 +105,13 @@ vector<point> vertex::getNeighbours(){
 	return v;	
 }
 
+void vertex::setHeuristic(int val){
+	heuristic = val;
+}
+
+int vertex::getHeuristic(){
+	return heuristic;
+}
+
 
 

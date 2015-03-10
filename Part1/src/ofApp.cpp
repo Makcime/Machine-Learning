@@ -462,6 +462,9 @@ void ofApp::keyPressed(int key){
     case 'n':
 		myGraph->next_hop(); 
         break;
+    case 'r':
+		myGraph->resetGraph(); 
+        break;
     default:
         break;
     }

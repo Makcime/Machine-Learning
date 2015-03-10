@@ -40,6 +40,8 @@ private:
     connection con;
     point position;
 
+    int heuristic;
+
 public:
     vertex();
     vertex(int i, int h, int w, int map_size, int sqrt_size);
@@ -58,6 +60,9 @@ public:
     vertex* nextCon_reverse();
     vector<int> getIds();
     vector<point> getNeighbours();
+
+    void setHeuristic(int val);
+    int getHeuristic();
 
     void setPosition(int h, int w, int map_size, int sqrt_size);
     point getPosition();

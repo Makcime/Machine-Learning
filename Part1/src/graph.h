@@ -46,7 +46,10 @@ public:
 
 	// vector <vertex *> compute_hop_dfs();
 	void next_hop();
+	void resetGraph();
 	vector <vertex *> compute_hop_nds();
+
+	void computeHeuristic();
 
 	void print_map_as_matrix();
 	void print_matrix_as_csv();
