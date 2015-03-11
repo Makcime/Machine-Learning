@@ -32,15 +32,10 @@ graph::graph(){
 	start = map[6];
 	goal = map[43];
 
-	path.push_back(start);
-	file.push_back(path);
-	start->setCheck(true);
-	goalReached = false;
-
-	algoSelected = EEUC;
-	// algoSelected = NDS;
-
 	computeHeuristic();
+
+	initGraph();
+
 
 }
 
@@ -106,150 +101,175 @@ void graph::draw(){
 	}
 
 	if(goalReached){
-		for (int i = 0; i < path_found.size(); ++i){
-			point p = path_found[i]->getPosition();
+		for (int i = 0; i < path_found.nodes.size(); ++i){
+			point p = path_found.nodes[i]->getPosition();
 			int x = p.x;
 			int y = p.y;
 			ofFill();
 	    	ofSetColor(ofColor::red);
 	    	ofCircle(x, y, 8);
 		}
-	}
+	}else{
+		for (int i = 0; i < file.back().nodes.size(); ++i){
+			point p = file.back().nodes[i]->getPosition();
+			int x = p.x;
+			int y = p.y;
+			ofFill();
+	    	ofSetColor(ofColor::red);
+	    	ofCircle(x, y, 8);
+		}
+	}	
 
 }
 //--------------------------------------------------------------
 
+bool graph::isPresent(vertex * n, path v){
+	for (int i = 0; i < v.nodes.size(); ++i)
+		if(v.nodes[i] == n)
+			return true;
+
+	return false;
+}
+
+void graph::computeCost(path *p){
+	int accuCost = 0;
+	for (int i = 0; i < p->nodes.size()-1; ++i)
+		accuCost += p->nodes[i]->getCost(p->nodes[i+1]);
+
+	p->cost = accuCost + p->nodes.back()->getHeuristic();
+}
+
+void graph::addFront(vector<path> vp) {
+	for (int i = vp.size(); i > 0; --i){
+		file.push_back(vp[i-1]);
+	}
+}
+
+void graph::addAtRandom(vector<path> vp){
+	for (int i = 0; i < vp.size(); ++i){
+		file.insert(file.begin() + ofRandom(0, file.size())
+			, vp[i]);
+	}
+}
+
+void graph::addWithHeuristic(vector<path> vp){
+	int indice = 0; 
+	int heur;
+	for (int i = 0; i < vp.size(); ++i){
+		heur = vp[i].nodes.back()->getHeuristic();
+		indice = file.size();
+		if(!file.empty()){
+			while(file[indice-1].nodes.back()->getHeuristic() <= heur){
+				indice--;
+				if(indice == 0)
+					break;
+			}
+		}
+		file.insert(file.begin() + indice , vp[i]);
+	}
+
+}
+
+void graph::addWithCost(vector<path> vp){
+	int indice = 0; 
+	int cost;
+	for (int i = 0; i < vp.size(); ++i){
+		cost = vp[i].cost;
+		indice = file.size();
+		if(!file.empty()){
+			while(file[indice-1].cost <= cost){
+				indice--;
+				if(indice == 0)
+					break;
+			}
+		}
+		file.insert(file.begin() + indice , vp[i]);
+	}
+}
+
 // vector <vertex *> graph::compute_hop_dfs(){
 void graph::next_hop(){
-	vector < vertex * > new_path;
-	int place = 0, heur;
+
+	path new_path, last_path, eeuc_last_path;
+	vector<path> new_path_list;
+	vertex * last_node;
+	vector<vertex *> neighborhood;
+
 	if(!file.empty() && !goalReached){
-		path = file.back(); // remove the first path from the QUEUE (FILE);
+		last_path = file.back(); // remove the first path from the QUEUE (FILE);
 		file.pop_back();
 
 		printf("\npath : [");
-		for (int j = 0; j < path.size(); ++j)
-			printf("%d,", path[j]->getId() );
-			// printf("]");getchar();
-			printf("]\n");
+		for (int j = 0; j < last_path.nodes.size(); ++j)
+			printf("%d,", last_path.nodes[j]->getId());
+			printf("] -> cost : %d\n", last_path.cost);
 		
-		vertex * plop ;
-		plop = path.back();
+		last_node = last_path.nodes.back();
 
-		vertex * next = NULL;
-		next = plop->nextCon_reverse();
+		neighborhood = last_node->getNeighbours();
 
-		while(next != NULL && !goalReached){
-		/* create new paths (to all children); */
-			new_path =  path;
-			next = plop->nextCon_reverse();
-			if(next != NULL){
-				next->setCheck(true);
-				new_path.push_back(next);
+		for (int i = 0; i < neighborhood.size(); ++i){
+			neighborhood[i]->setCheck(true);
+			if(!isPresent(neighborhood[i], last_path)){
+				new_path = last_path;
+				new_path.nodes.push_back(neighborhood[i]);
+				computeCost(&new_path);
+				new_path_list.push_back(new_path);
+
 				printf("\tNEW path : [");
-				for (int j = 0; j < new_path.size(); ++j)
-					printf("%d,", new_path[j]->getId() );
-					// printf("]");getchar();
-				printf("] -> ");
-			/*add the new paths to front of QUEUE (FILE);*/
-				if(algoSelected != EEUC)
-					if(next == goal){
-					goalReached = true;
-					printf("\ngoalReached !!!!!\n");
-					place = file.size();
-					}
-
-				int f, fComp, accuCost;
-				if(!goalReached)
-					switch(algoSelected){
-						case DFS:
-							place = file.size();
-							break;
-						case NDS:
-							place = ofRandom(0, file.size());
-							break;
-						case GS:
-							heur = new_path.back()->getHeuristic();
-							place = file.size();
-							if(!file.empty()){
-								while(file[place-1].back()->getHeuristic() <= heur){
-									place--;
-									if(place == 0)
-										break;
-								}
-							}
-
-							break;
-
-						case EEUC:
-							accuCost = 0;
-							heur = new_path.back()->getHeuristic();
-
-							for (int i = 0; i < new_path.size()-1; ++i)
-								accuCost += new_path[i]->getCost(new_path[i+1]);
-
-							f = accuCost + heur;
-
-							fComp = f;
-							place = file.size();
-
-							if(!file.empty()){
-								vector < vertex * > plop;
-								while(fComp <= f){
-
-									accuCost = 0;
-									plop = file[place-1];
-									
-									for (int j = 0; j < plop.size()-1; ++j)
-										accuCost += plop[j]->getCost(plop[j+1]);
-
-									fComp = accuCost + plop.back()->getHeuristic();
-									
-									printf("\nf %d fComp %d\n",f, fComp );
-									printf("place : %d\n", place);
-									if (fComp <= f)
-										place--;
-									if(place == 0)
-										break;
-								}
-							}
-							break;
-						default:
-							break;
-					}
-					printf("insert in position %d\n", place );
-				file.insert(file.begin() + place, new_path);
+				for (int j = 0; j < new_path.nodes.size(); ++j)
+					printf("%d,", new_path.nodes[j]->getId() );
+				printf("] -> cost : %d\n", new_path.cost);
 			}
-			if(algoSelected == EEUC)
-				if(file.back().back() == goal){
+		}
+
+		// for (int i = 0; i < new_path_list.size(); ++i){
+		switch(algoSelected){
+			case DFS:
+				addFront(new_path_list);
+				break;
+			case NDS:
+				addAtRandom(new_path_list);
+				break;
+			case GS:
+				addWithHeuristic(new_path_list);
+				break;
+			case EEUC:
+				addWithCost(new_path_list);
+				break;
+		}
+		// }
+
+		if(algoSelected == EEUC){
+			eeuc_last_path = file.back();
+			if(eeuc_last_path.nodes.back() == goal){
+				goalReached = true;
+				printf("\n!! -- Goal reached -- !!\n");
+				path_found = eeuc_last_path;
+			}
+		}else{
+			for (int i = 0; i < new_path_list.size(); ++i)
+				if(new_path_list[i].nodes.back() == goal){
 					goalReached = true;
-					printf("\ngoalReached !!!!!\n");
-					place = file.size();
-					}
+					printf("\n!! -- Goal reached -- !!\n");
+					path_found = new_path_list[i];
+				}
 		}
 
 		printf("\nFile : [\n");
 		for (int i = 0; i < file.size(); ++i){
 			printf("\tPath :[");
-			for (int j = 0; j < file[i].size(); ++j)
-				printf("%d,", file[i][j]->getId() );
-				// printf("]");getchar();
+			for (int j = 0; j < file[i].nodes.size(); ++j)
+				printf("%d,", file[i].nodes[j]->getId() );
 				printf("]\n");
 		}
 		printf("]\n");
 
-		if(goalReached == true){
-			path = file.back(); // remove the first path from the QUEUE (FILE);
-			path_found = path;
-			for (vector<vertex *>::iterator i = path.begin(); i != path.end(); ++i){
-				vertex * plop;		
-				plop = *i;
-				printf("%d - ", plop->getId());
-			}
+		if(goalReached == true)
+			for (int i = 0; i < path_found.nodes.size(); ++i)
+				printf("%d - ", path_found.nodes[i]->getId());
 			printf("\n");
-		}
 	}
-
 }
 
 //--------------------------------------------------------------
@@ -328,18 +348,13 @@ void graph::resetGraph(){
 		map[i]->setCheck(false);
 	}
 	goalReached = false;
-	path_found.clear();
-	path.clear();
+	path_found.nodes.clear();
 	file.clear();
 
 	start = map[0];
 	goal = map[48];
 
-	path.push_back(start);
-	file.push_back(path);
-	start->setCheck(true);
-	goalReached = false;
-	computeHeuristic();
+	initGraph();
 
 	// algoSelected = NDS;
 };
@@ -354,4 +369,15 @@ void graph::computeHeuristic(){
 		heuristic = (int) sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 		map[i]->setHeuristic(heuristic);
 	}
+}
+
+void graph::initGraph(){
+	path p; 
+	p.nodes.push_back(start);
+	computeCost(&p);
+	file.push_back(p);
+	start->setCheck(true);
+	goalReached = false;
+
+	algoSelected = DFS;
 }

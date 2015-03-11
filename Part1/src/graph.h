@@ -26,9 +26,16 @@
 
 class graph
 {
+
+struct path
+{	
+	vector < vertex * >	nodes;
+	int cost;
+};
 private:
-	vector < vertex * > map, path_found, path;
-	vector < vector<vertex*> > file;
+	vector < vertex * > map;
+	path path_found;
+	vector < path > file;
 
 	vertex *start, *goal;
 
@@ -47,10 +54,12 @@ public:
 
 	// vector <vertex *> compute_hop_dfs();
 	void next_hop();
+	void initGraph();
 	void resetGraph();
 	vector <vertex *> compute_hop_nds();
 
 	void computeHeuristic();
+	void computeCost(path *p);
 
 	void print_map_as_matrix();
 	void print_matrix_as_csv();
@@ -60,6 +69,13 @@ public:
 	void draw();
 
 	void resetPositions(int w, int h);
+
+	bool isPresent(vertex * n, path v);
+	void addFront(vector<path> vp) ;
+	void addAtRandom(vector<path> vp);
+	void addWithHeuristic(vector<path> vp);
+	void addWithCost(vector<path> vp);
+
 
 };
 

@@ -17,9 +17,6 @@ si file pas vide et pas goal:
 	si dfs :
 		pour chaque nouveau chemin:
 			addFront(nouveau chemin)
-			si nouveau_chemin.back = goal
-				goalreached = true
-
 
 	si nds:
 		pour chaque nouveau chemin:
