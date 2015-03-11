@@ -4,8 +4,10 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	// creation de tout les noeuds sur la carte
-	ofToggleFullscreen();
+	// ofToggleFullscreen();
 	gui_setup();
+    // ofBackground(0, 0, 0);
+	
 	// gui.add(filled.setup("fill", true));
 
 	// myfont.loadFont("arial.ttf", 11);
@@ -59,15 +61,16 @@ void ofApp::gui_setup(){
 
     gui->addSpacer();
     
-    vector<string> vnames; vnames.push_back("DFS"); 
-    vnames.push_back("NDS"); 
+    vector<string> vnames; vnames.push_back("Depth-First Search"); 
+    vnames.push_back("Non-Deterministic Search"); 
     vnames.push_back("Greedy Search");
+    vnames.push_back("Estimate-Extended Uniform Cost");
     gui->addLabel("Algo ", OFX_UI_FONT_MEDIUM);
     ofxUIRadio *radio = gui->addRadio("VR", vnames, OFX_UI_ORIENTATION_VERTICAL);
     radio->activateToggle("DFS");
 
     gui->addSpacer();
-    gui->addLabel("Start point"); 
+    gui->addLabel("Start"); 
     gui->addTextInput("MEDIUM TEXTINPUT", "0", OFX_UI_FONT_MEDIUM);
 
     gui->addSpacer();
@@ -451,6 +454,7 @@ void ofApp::exit()
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+	static float plop = 0;
     switch (key)
     {
     case 'f':
@@ -461,6 +465,7 @@ void ofApp::keyPressed(int key){
         break;
     case 'n':
 		myGraph->next_hop(); 
+    	for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0, plop+=0.0003); }
         break;
     case 'r':
 		myGraph->resetGraph(); 

@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp{
 		// vector < int > path;
 
 		ofxToggle filled;
-		ofTrueTypeFont myfont;
+		// ofTrueTypeFont myfont;
     	float *buffer; 
 
 	public:

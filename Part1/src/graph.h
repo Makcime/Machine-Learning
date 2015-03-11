@@ -22,6 +22,7 @@
  #define DFS 1
  #define NDS 2
  #define GS 3
+ #define EEUC 4
 
 class graph
 {

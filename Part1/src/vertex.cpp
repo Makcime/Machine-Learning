@@ -1,4 +1,5 @@
 #include "vertex.h"
+#include "ofMain.h"
 
 vertex::vertex(){
 	
@@ -97,10 +98,18 @@ point vertex::getPosition(){
 	return position;
 }
 
-vector<point> vertex::getNeighbours(){
+vector<point> vertex::getNeighboursPos(){
 	vector<point> v;
 	for (int i = 0; i < connected.size(); ++i)
 		v.push_back(connected[i].node->getPosition());
+
+	return v;	
+}
+
+vector<vertex *> vertex::getNeighbours(){
+	vector<vertex *> v;
+	for (int i = 0; i < connected.size(); ++i)
+		v.push_back(connected[i].node);
 
 	return v;	
 }
@@ -113,5 +122,22 @@ int vertex::getHeuristic(){
 	return heuristic;
 }
 
+int vertex::getCost(vertex *v){
+	for (int i = 0; i < connected.size(); ++i)
+		if (connected[i].node == v)
+			return connected[i].weight;
+
+	return 0;
+}
+
+void vertex::computeWeights(){
+	point p1, p2;
+	int heuristic;
+	for (int i = 0; i < connected.size(); ++i){
+		p1 = connected[i].node->getPosition();
+		p2 = position;
+		connected[i].weight = (int) sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+	}
+}
 
 

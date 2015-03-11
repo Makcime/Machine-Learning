@@ -59,15 +59,20 @@ public:
     vertex* nextCon();
     vertex* nextCon_reverse();
     vector<int> getIds();
-    vector<point> getNeighbours();
+    vector<point> getNeighboursPos();
+    vector<vertex *> getNeighbours();
 
     void setHeuristic(int val);
     int getHeuristic();
+
+    void computeWeights();
 
     void setPosition(int h, int w, int map_size, int sqrt_size);
     point getPosition();
 
     void draw();
+
+    int getCost(vertex *v);
 
 };
 
