@@ -1,0 +1,48 @@
+pseudo Algo :
+
+
+prochain saut:
+
+si file pas vide et pas goal:
+	chemin = pop file
+	dernier noeud = pop chemin
+
+
+	pour chaque voisin de dernier noeud :
+		si voisin pas dans chemin
+			nouveau_chemin = chemin + voisin
+			calculer cost nouveau_chemin
+
+
+	si dfs :
+		pour chaque nouveau chemin:
+			addFront(nouveau chemin)
+			si nouveau_chemin.back = goal
+				goalreached = true
+
+
+	si nds:
+		pour chaque nouveau chemin:
+			addRandom(nouveau chemin)
+
+	si gs:
+		pour chaque nouveau chemin:
+			addHeuristic(nouveau chemin)
+
+	si eeuc:
+		pour chaque nouveau chemin:
+			addAccuCost(nouveau chemin)
+
+
+	si eeuc
+		si dernier noeud du dernier chemin == goal:
+			goalreached = true
+			chemin trouvé = nouveau_chemin
+				
+	sinon:
+		pour chaque nouveau chemin:
+			si nouveau_chemin.back = goal:
+				goalreached = true
+				chemin trouvé = nouveau_chemin
+
+	
