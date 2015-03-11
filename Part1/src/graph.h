@@ -68,6 +68,9 @@ public:
 
 	void draw();
 
+	string getStart();
+	string getGoal();
+
 	void resetPositions(int w, int h);
 
 	bool isPresent(vertex * n, path v);

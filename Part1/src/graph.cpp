@@ -39,6 +39,22 @@ graph::graph(){
 
 }
 
+string graph::getStart(){
+	stringstream ss;
+	ss << start->getId();
+
+	return ss.str();
+}
+
+string graph::getGoal(){
+	stringstream ss;
+	ss << goal->getId();
+
+	return ss.str();
+}
+
+
+
 //--------------------------------------------------------------
 
 graph::~graph(){

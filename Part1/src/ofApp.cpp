@@ -5,7 +5,7 @@
 void ofApp::setup(){
 	// creation de tout les noeuds sur la carte
 	// ofToggleFullscreen();
-	gui_setup();
+	// gui_setup();
     // ofBackground(0, 0, 0);
 	
 	// gui.add(filled.setup("fill", true));
@@ -13,6 +13,7 @@ void ofApp::setup(){
 	// myfont.loadFont("arial.ttf", 11);
 
 	myGraph = new graph();
+	gui_setup();
 
 	// for (int i = 0; i < MAP_SIZE; ++i)
 	// 	map.push_back(new vertex(i));
@@ -71,11 +72,11 @@ void ofApp::gui_setup(){
 
     gui->addSpacer();
     gui->addLabel("Start"); 
-    gui->addTextInput("MEDIUM TEXTINPUT", "0", OFX_UI_FONT_MEDIUM);
+    gui->addTextInput("MEDIUM TEXTINPUT", myGraph->getStart(), OFX_UI_FONT_MEDIUM);
 
     gui->addSpacer();
     gui->addLabel("Goal"); 
-    gui->addTextInput("MEDIUM TEXTINPUT", "15", OFX_UI_FONT_MEDIUM);
+    gui->addTextInput("MEDIUM TEXTINPUT", myGraph->getGoal(), OFX_UI_FONT_MEDIUM);
         
     gui->addSpacer();
     gui->addLabelToggle("RUN !", false);
