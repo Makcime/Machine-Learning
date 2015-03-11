@@ -273,7 +273,8 @@ void graph::next_hop(){
 
 		printf("\nFile : [\n");
 		for (int i = 0; i < file.size(); ++i){
-			printf("\tPath :[");
+			printf("  Cost : %6d |", file[i].cost);
+			printf(" Path :[");
 			for (int j = 0; j < file[i].nodes.size(); ++j)
 				printf("%d,", file[i].nodes[j]->getId() );
 				printf("]\n");
