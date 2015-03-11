@@ -6,6 +6,12 @@ void ofApp::setup(){
 	ofToggleFullscreen();
 	myGraph = new graph();
 	gui_setup();
+
+	globSet = { .start = 0, .goal = 48, .algo = DFS };
+
+	myGraph->resetGraph(globSet.start, 
+						globSet.goal, 
+						globSet.algo);
 }
 
 //--------------------------------------------------------------
@@ -22,19 +28,21 @@ void ofApp::gui_setup(){
     vnames.push_back("Greedy Search");
     vnames.push_back("Estimate-Extended Uniform Cost");
     gui->addLabel("Algo ", OFX_UI_FONT_MEDIUM);
-    ofxUIRadio *radio = gui->addRadio("VR", vnames, OFX_UI_ORIENTATION_VERTICAL);
-    radio->activateToggle("DFS");
+    ofxUIRadio *radio = gui->addRadio("ALGO", vnames, OFX_UI_ORIENTATION_VERTICAL);
+    radio->activateToggle("Depth-First Search");
 
     gui->addSpacer();
     gui->addLabel("Start"); 
-    gui->addTextInput("MEDIUM TEXTINPUT", myGraph->getStart(), OFX_UI_FONT_MEDIUM);
+    // gui->addTextInput("START INPUT", myGraph->getStart(), OFX_UI_FONT_MEDIUM);
+    gui->addTextInput("START INPUT", "", OFX_UI_FONT_MEDIUM)->setAutoClear(false);
 
     gui->addSpacer();
     gui->addLabel("Goal"); 
-    gui->addTextInput("MEDIUM TEXTINPUT", myGraph->getGoal(), OFX_UI_FONT_MEDIUM);
+    // gui->addTextInput("GOAL INPUT", myGraph->getGoal(), OFX_UI_FONT_MEDIUM);
+    gui->addTextInput("GOAL INPUT", "", OFX_UI_FONT_MEDIUM)->setAutoClear(false);
         
     gui->addSpacer();
-    gui->addLabelToggle("RUN !", false);
+    gui->addLabelButton("RESET", false);
 
     gui->addSpacer();
 
@@ -71,55 +79,47 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
 	string name = e.widget->getName(); 
 	int kind = e.widget->getKind(); 
     
-    if(kind == OFX_UI_WIDGET_BUTTON)
-    {
-        ofxUIButton *button = (ofxUIButton *) e.widget; 
-        cout << name << "\t value: " << button->getValue() << endl;         
-    }
-    else if(kind == OFX_UI_WIDGET_TOGGLE)
-    {
-        ofxUIToggle *toggle = (ofxUIToggle *) e.widget; 
-        cout << name << "\t value: " << toggle->getValue() << endl;             
-    }
-    else if(kind == OFX_UI_WIDGET_IMAGEBUTTON)
-    {
-        ofxUIImageButton *button = (ofxUIImageButton *) e.widget; 
-        cout << name << "\t value: " << button->getValue() << endl;                 
-    }
-    else if(kind == OFX_UI_WIDGET_IMAGETOGGLE)
-    {
-        ofxUIImageToggle *toggle = (ofxUIImageToggle *) e.widget; 
-        cout << name << "\t value: " << toggle->getValue() << endl;                 
-    }
-	else if(kind == OFX_UI_WIDGET_LABELBUTTON)
+	if(kind == OFX_UI_WIDGET_LABELBUTTON)
     {
         ofxUILabelButton *button = (ofxUILabelButton *) e.widget; 
-        cout << name << "\t value: " << button->getValue() << endl;                 
+        if(button->getValue() == 1)
+		myGraph->resetGraph(globSet.start, 
+							globSet.goal, 
+							globSet.algo);
+        // cout << name << "\t value: " << button->getValue() << endl;                 
     }
-    else if(kind == OFX_UI_WIDGET_LABELTOGGLE)
+    else if(name == "START INPUT")
     {
-        ofxUILabelToggle *toggle = (ofxUILabelToggle *) e.widget; 
-        cout << name << "\t value: " << toggle->getValue() << endl;                 
+        ofxUITextInput *ti = (ofxUITextInput *) e.widget;
+        if(ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
+        {
+	        string output = ti->getTextString();
+	        globSet.start = atoi(output.c_str());
+        }
     }
-	else if(name == "B1")
-	{
-        ofxUIButton *button = (ofxUIButton *) e.widget; 
-        cout << "value: " << button->getValue() << endl; 
-	}
-    else if(name == "B2")
+    else if(name == "GOAL INPUT")
     {
-        ofxUIButton *button = (ofxUIButton *) e.widget; 
-        cout << "value: " << button->getValue() << endl;         
+        ofxUITextInput *ti = (ofxUITextInput *) e.widget;
+        if(ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
+        {
+	        string output = ti->getTextString();
+	        ti->setTextString(output);
+	        globSet.goal = atoi(output.c_str());
+        }
     }
-    else if(name == "T1")
+    else if(name == "ALGO")
     {
-        ofxUIToggle *toggle = (ofxUIToggle *) e.widget; 
-        cout << "value: " << toggle->getValue() << endl;     
-    }
-    else if(name == "T2")
-    {
-        ofxUIToggle *toggle = (ofxUIToggle *) e.widget; 
-        cout << "value: " << toggle->getValue() << endl;     
+        ofxUIRadio *radio = (ofxUIRadio *) e.widget;
+        cout << radio->getName() << " value: " << radio->getValue() << " active name: " << radio->getActiveName() << endl;
+        string n = radio->getActiveName();
+        if(n == "Depth-First Search") 
+        	globSet.algo = DFS;
+		else if(n == "Non-Deterministic Search") 
+			globSet.algo = NDS;
+		else if(n == "Greedy Search")
+			globSet.algo = GS;
+		else if(n == "Estimate-Extended Uniform Cost")
+			globSet.algo = EEUC;
     }
 }
 //--------------------------------------------------------------
@@ -144,7 +144,9 @@ void ofApp::keyPressed(int key){
     	for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0, plop+=0.0003); }
         break;
     case 'r':
-		myGraph->resetGraph(); 
+		myGraph->resetGraph(globSet.start, 
+							globSet.goal, 
+							globSet.algo); 
         break;
     default:
         break;

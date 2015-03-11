@@ -18,8 +18,15 @@
 
 class ofApp : public ofBaseApp{
 
+	struct globalSettings
+	{
+		int start, goal;
+		int algo;
+	};
 
 	private:
+
+		globalSettings globSet;
 
 		graph *myGraph;
 

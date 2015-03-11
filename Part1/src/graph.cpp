@@ -36,7 +36,6 @@ graph::graph(){
 
 	initGraph();
 
-
 }
 
 string graph::getStart(){
@@ -373,6 +372,23 @@ void graph::resetGraph(){
 	initGraph();
 
 	// algoSelected = NDS;
+};
+
+void graph::resetGraph(int s, int g, int algo){
+	for (int i = 0; i < MAP_SIZE; ++i){
+		map[i]->setCheck(false);
+	}
+	goalReached = false;
+	path_found.nodes.clear();
+	file.clear();
+
+	start = map[s];
+	goal = map[g];
+
+	initGraph();
+
+	algoSelected = algo;
+
 };
 
 

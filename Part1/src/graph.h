@@ -56,6 +56,7 @@ public:
 	void next_hop();
 	void initGraph();
 	void resetGraph();
+	void resetGraph(int s, int g, int algo);
 	vector <vertex *> compute_hop_nds();
 
 	void computeHeuristic();
