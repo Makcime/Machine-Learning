@@ -3,11 +3,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
 	ofToggleFullscreen();
-	gui_setup();
-
 	myGraph = new graph();
+	gui_setup();
 }
 
 //--------------------------------------------------------------
@@ -29,11 +27,11 @@ void ofApp::gui_setup(){
 
     gui->addSpacer();
     gui->addLabel("Start"); 
-    gui->addTextInput("MEDIUM TEXTINPUT", "0", OFX_UI_FONT_MEDIUM);
+    gui->addTextInput("MEDIUM TEXTINPUT", myGraph->getStart(), OFX_UI_FONT_MEDIUM);
 
     gui->addSpacer();
     gui->addLabel("Goal"); 
-    gui->addTextInput("MEDIUM TEXTINPUT", "15", OFX_UI_FONT_MEDIUM);
+    gui->addTextInput("MEDIUM TEXTINPUT", myGraph->getGoal(), OFX_UI_FONT_MEDIUM);
         
     gui->addSpacer();
     gui->addLabelToggle("RUN !", false);
