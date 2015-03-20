@@ -49,13 +49,13 @@ void ofApp::gui_setup(){
     buffer = new float[256];     
     for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0); }
     
-	gui->addLabel("WAVEFORM GRAPH");     
-	gui->addWaveform("WAVEFORM", buffer, 256, 0.0, 1.0);
+	// gui->addLabel("WAVEFORM GRAPH");     
+	// gui->addWaveform("WAVEFORM", buffer, 256, 0.0, 1.0);
 
-    gui->addLabel("SPECTRUM GRAPH");        
-    gui->addSpectrum("SPECTRUM", buffer, 256, 0.0, 1.0);
+ //    gui->addLabel("SPECTRUM GRAPH");        
+ //    gui->addSpectrum("SPECTRUM", buffer, 256, 0.0, 1.0);
 
-    gui->addSpacer();
+    // gui->addSpacer();
 
     gui->autoSizeToFitWidgets();
     ofAddListener(gui->newGUIEvent,this,&ofApp::guiEvent);
@@ -91,7 +91,8 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
     else if(name == "START INPUT")
     {
         ofxUITextInput *ti = (ofxUITextInput *) e.widget;
-        if(ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
+        if(ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_UNFOCUS
+        	|| ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
         {
 	        string output = ti->getTextString();
 	        globSet.start = atoi(output.c_str());
@@ -100,7 +101,8 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
     else if(name == "GOAL INPUT")
     {
         ofxUITextInput *ti = (ofxUITextInput *) e.widget;
-        if(ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
+        if(ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_UNFOCUS
+        	|| ti->getInputTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
         {
 	        string output = ti->getTextString();
 	        ti->setTextString(output);

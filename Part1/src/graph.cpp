@@ -32,7 +32,6 @@ graph::graph(){
 	start = map[6];
 	goal = map[43];
 
-	computeHeuristic();
 
 	initGraph();
 
@@ -247,7 +246,7 @@ void graph::next_hop(){
 				addAtRandom(new_path_list);
 				break;
 			case GS:
-				addWithHeuristic(new_path_list);
+				addWithHeuristic(new_path_list);	
 				break;
 			case EEUC:
 				addWithCost(new_path_list);
@@ -413,4 +412,7 @@ void graph::initGraph(){
 	goalReached = false;
 
 	algoSelected = DFS;
+
+	computeHeuristic();
+
 }
