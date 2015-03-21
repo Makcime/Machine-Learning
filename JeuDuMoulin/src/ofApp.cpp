@@ -3,6 +3,12 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+
+
+    plateau.loadImage("images/board.png");
+    plateau.resize(750, 750);
+
+
 	ofToggleFullscreen();
 	myGraph = new graph();
 	gui_setup();
@@ -70,7 +76,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	myGraph->draw();
+    plateau.draw(0, 0);
+	// myGraph->draw();
 }
 
 //--------------------------------------------------------------

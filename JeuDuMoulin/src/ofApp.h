@@ -36,6 +36,8 @@ class ofApp : public ofBaseApp{
 		ofxToggle filled;
 		// ofTrueTypeFont myfont;
     	float *buffer; 
+		ofImage plateau;
+
 
 	public:
 		void setup();
