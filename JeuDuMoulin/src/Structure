@@ -1,0 +1,27 @@
+Structure
+
+Classe jeu du moulin :
+
+	2 Joueur
+		pions
+			couleur
+			coordonnée
+
+	1 plateau
+		graph
+			vertexx == case
+			edge == chemin
+
+	Check gagnant
+	bouger pion
+
+	Joureus peut jouer un coup
+		pions, coordonnee jouee
+
+
+
+Derroulement d'une partie :
+	
+²
+
+
