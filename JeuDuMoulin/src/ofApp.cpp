@@ -1,5 +1,4 @@
 #include "ofApp.h"
-#define	FILEPATH "../data/matrix.csv"
 
 //--------------------------------------------------------------
 void ofApp::setup(){

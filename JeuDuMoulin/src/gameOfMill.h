@@ -13,9 +13,23 @@
 #include "player.h"
 
 #define PAWN_NUMBER 9
+#define BEERS 10
 
 class GameOfMill
 {
+
+	string beers[BEERS] = {
+	"barbar",
+	"carapils",
+	"chimay",
+	"duff",
+	"jupiler",
+	"karmeliet",
+	"kwak",
+	"leffe",
+	"orval",
+	"westmalle"		
+};
 
 private:
 

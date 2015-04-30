@@ -68,6 +68,7 @@ public:
     void computeWeights();
 
     void setPosition(int h, int w, int map_size, int sqrt_size);
+    void setPosition(int x, int y);
     point getPosition();
 
     void draw();

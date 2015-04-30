@@ -80,6 +80,8 @@ public:
 	void addWithHeuristic(vector<path> vp);
 	void addWithCost(vector<path> vp);
 
+	vector < vertex * > getMap();
+
 
 };
 

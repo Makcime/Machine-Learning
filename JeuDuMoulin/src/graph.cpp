@@ -25,13 +25,27 @@ graph::graph(){
 				map[k]->add_connection(map[i], weight);
 		}
 		k++;
-	} 
+	}
 
-	print_map_as_matrix();
+	/*-- Hack degueu pour positionner le graph sur plateau ---*/
+	for(int i = 0; i < MAP_SIZE; ++i){
+		int rowNb = i/7;
+		int colNb = i%7;
+
+		int deltax = 78;
+		int deltay = 83;
+
+		int stX = 750;
+		int stY = 130;
+
+		map[i]->setPosition(colNb * deltax +  stX, rowNb * deltay + stY );
+	} 
+	/*--- fin du hack degueu---*/
+
+	// print_map_as_matrix();
 
 	start = map[6];
 	goal = map[43];
-
 
 	initGraph();
 
@@ -70,6 +84,10 @@ void graph::draw(){
 		point p = map[i]->getPosition();
 		int x = p.x;
 		int y = p.y;
+		// int x = p.x;
+		// int y = p.y;
+
+
 
 		int id = map[i]->getId();
 		if (map[i]->getConCnt()){
@@ -415,4 +433,9 @@ void graph::initGraph(){
 
 	computeHeuristic();
 
+}
+
+
+vector < vertex * > graph::getMap(){
+	return this->map;
 }

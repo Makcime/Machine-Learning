@@ -15,6 +15,11 @@
 #include "ofMain.h"
 #include "vertex.h"
 
+#define IMG_PATH "../data/images/"
+#define IMG_EXT ".png"
+#define IMG_SIZE 65
+
+
 class Pawn
 {
 
@@ -22,13 +27,18 @@ private:
 	string style; // orval, jupiler, etc
 	vertex * position;
 
+	ofImage cap;
+
 public:
 	Pawn();
 	Pawn(string s);
 	~Pawn();
 
-	void draw();
+	void draw(int x, int y);
 	void update();
+
+	vertex* getPosition();
+	void setPosition(vertex* pos);
 
 };
 

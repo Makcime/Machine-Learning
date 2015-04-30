@@ -14,6 +14,7 @@
 #include <algorithm>
 #include "pawn.h"
 #include "ofMain.h"
+#include "vertex.h"
 
 class Player
 {
@@ -25,11 +26,13 @@ private:
 
 public:
 	Player();
-	Player(int nb);
+	Player(int pawnsNb, string name);
 	~Player();
 
-	void draw();
+	void draw(int x, int y);
 	void update();
+
+	void play(int p, vertex* v);
 
 };
 

@@ -94,6 +94,11 @@ void vertex::setPosition(int h, int w, int map_size, int sqrt_size){
 	position.y = (indice/sqrt_size) * pitch + delatax;
 }
 
+void vertex::setPosition(int x, int y){
+	position.x = x;
+	position.y = y;
+}
+
 point vertex::getPosition(){
 	return position;
 }

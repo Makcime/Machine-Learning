@@ -6,22 +6,24 @@
  *
  **/
 
- #include "graph.h"
-
 #ifndef GAMEFECK		
 #define GAMEFECK
 
-class GameDeck
+#include "graph.h"
+
+#define DECK_IMG "../data/images/board.jpg"
+
+class GameDeck : public graph
 {
 private:
-	graph* gameGraph;
-
+	// graph* gameGraph;
+	ofImage background;
 
 public:
 	GameDeck();
 	~GameDeck();
 
-	void draw();
+	void draw(int x, int y);
 	
 };
 
