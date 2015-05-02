@@ -49,14 +49,14 @@ void GameOfMill::draw(){
 
 	ofSetColor(0);
 	myfont.drawString("Player One :", 100 , 75 );
-	playerOne->draw(100, 120);
+	playerOne->draw(100, 130);
 
 	ofSetColor(0);
 	ofLine(0, screenH/2, (screenW/2) - (2*delta), screenH/2);
 
 	ofSetColor(0);
 	myfont.drawString("Player Two :", 100,  (screenH/2)+75);
-	playerTwo->draw(100, (screenH/2)+120);
+	playerTwo->draw(100, (screenH/2)+130);
 
 	ofSetColor(0);
 	ofLine((screenW/2) - (2*delta), 0, (screenW/2) - (2*delta) , screenH);

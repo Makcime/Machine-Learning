@@ -22,6 +22,7 @@ class Player
 private:
 
 	std::vector<Pawn *> pawns;
+	Pawn * selectedPawn;
 	string name; // orval, jupiler, etc
 
 public:

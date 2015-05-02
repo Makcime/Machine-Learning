@@ -29,6 +29,8 @@ private:
 
 	ofImage cap;
 
+	bool selected;
+
 public:
 	Pawn();
 	Pawn(string s);
@@ -39,6 +41,8 @@ public:
 
 	vertex* getPosition();
 	void setPosition(vertex* pos);
+
+	void select(bool s);
 
 };
 

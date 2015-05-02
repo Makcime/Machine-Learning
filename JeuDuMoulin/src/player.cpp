@@ -6,7 +6,9 @@ Player::Player(){
 Player::Player(int pawnsNb, string name){
 	this->name = name;
 	for (int i = 0; i < pawnsNb; ++i)
-		pawns.push_back(new Pawn(this->name));
+		this->pawns.push_back(new Pawn(this->name));
+	selectedPawn = this->pawns.front();
+	selectedPawn->select(true);
 }
 
 Player::~Player(){
@@ -19,6 +21,7 @@ void Player::draw(int x, int y){
 	myfont.loadFont("arial.ttf", 40);
 
 	ofSetColor(ofColor::black);
+	transform(this->name.begin(), this->name.begin()+1,this->name.begin(), ::toupper);
 	myfont.drawString(this->name, x , y );
 
 
