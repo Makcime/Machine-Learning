@@ -27,6 +27,9 @@ public:
 	void draw(int x, int y);
 	void nextPlace();
 	vertex * getSelection();
+	int getSelectionById();
+
+	void initGameState(int* p);
 
 	
 };

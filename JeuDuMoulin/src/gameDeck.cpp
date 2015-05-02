@@ -42,3 +42,17 @@ void GameDeck::nextPlace(){
 vertex * GameDeck::getSelection(){
 	return (*selectedVertex);
 }
+
+int GameDeck::getSelectionById(){
+	if((*selectedVertex))
+		return (*selectedVertex)->getId();
+	else
+		return -1;
+}
+
+void GameDeck::initGameState(int* p){
+		// gameState = {0};
+	for (int i = 0; i < MAP_SIZE; ++i)
+		if(map[i]->getConCnt() == 0)
+			*(p+i) = -1;
+}

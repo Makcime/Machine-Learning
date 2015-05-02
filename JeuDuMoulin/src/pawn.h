@@ -40,6 +40,7 @@ public:
 	void update();
 
 	vertex* getPosition();
+	int getPositionById();
 	void setPosition(vertex* pos);
 
 	void select(bool s);

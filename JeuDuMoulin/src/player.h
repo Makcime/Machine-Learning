@@ -36,6 +36,8 @@ public:
 
 	void play(vertex* v);
 
+	Pawn* getSelected();
+
 	void nextPawn();
 
 };

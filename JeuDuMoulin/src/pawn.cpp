@@ -30,6 +30,13 @@ vertex* Pawn::getPosition(){
 	return this->position;
 }
 
+int Pawn::getPositionById(){
+	if(this->position)
+		return this->position->getId();
+	else
+		return -1;
+}
+
 void Pawn::setPosition(vertex* pos){
 	this->position = pos;
 }

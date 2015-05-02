@@ -17,6 +17,8 @@ GameOfMill::GameOfMill(){
 	playerCnt = 1;
 	currentPlayer = playerOne;
 
+	deck->initGameState(gameState);
+
 }
 
 GameOfMill::~GameOfMill(){
@@ -62,9 +64,24 @@ void GameOfMill::selectPlace(){
 }
 
 void GameOfMill::Play(){
+
+	int oldId = currentPlayer->getSelected()->getPositionById();
+	gameState[oldId] = 0;
+	gameState[deck->getSelectionById()] = (playerCnt-1)%2+1; 
 	currentPlayer->play(deck->getSelection());
 	if((playerCnt++)%2)
 		currentPlayer = playerTwo;
 	else
 		currentPlayer = playerOne;
+	printf("\n|----------------------------|\n|");
+	for (int i = 0; i < MAP_SIZE; ++i)
+	{
+		if((!(i%7)) & i!=0)
+			printf("|\n|");
+		if(gameState[i]>=0)
+			printf(" %02d ", gameState[i]);
+		else
+			printf("    ");
+	}
+	puts("|\n|----------------------------|");
 }

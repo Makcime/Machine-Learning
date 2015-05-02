@@ -40,6 +40,7 @@ void Player::draw(int x, int y){
 
 void Player::play(vertex* v){
 	(*selectedPawn)->setPosition(v);
+	nextPawn();
 }
 
 void Player::nextPawn(){
@@ -48,4 +49,8 @@ void Player::nextPawn(){
 	if(selectedPawn == pawns.end())
 		selectedPawn = pawns.begin();
 	(*selectedPawn)->select(true);
+}
+
+Pawn* Player::getSelected(){
+	return (*selectedPawn);
 }

@@ -18,6 +18,7 @@
 class GameOfMill
 {
 
+private:
 	string beers[BEERS] = {
 	"barbar",
 	"carapils",
@@ -54,7 +55,7 @@ class GameOfMill
 	{32,40,48}
 	};
 
-private:
+	int gameState[MAP_SIZE] = {0};
 
 	GameDeck* deck;
 	Player* playerOne;
