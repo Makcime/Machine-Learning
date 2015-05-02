@@ -28,6 +28,8 @@ GameOfMill::GameOfMill(){
 			playerTwo->play(ofRandom(PAWN_NUMBER) ,deck->getMap()[j]);
 	}
 
+	currentPlayer = playerOne;
+
 }
 
 GameOfMill::~GameOfMill(){
@@ -61,4 +63,9 @@ void GameOfMill::draw(){
 	ofSetColor(0);
 	ofLine((screenW/2) - (2*delta), 0, (screenW/2) - (2*delta) , screenH);
 
+}
+
+
+void GameOfMill::nextPawn(){
+	this->currentPlayer->nextPawn();
 }

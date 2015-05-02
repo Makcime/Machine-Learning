@@ -15,14 +15,15 @@
 #include "pawn.h"
 #include "ofMain.h"
 #include "vertex.h"
+#include <iterator>
 
 class Player
 {
 
 private:
 
-	std::vector<Pawn *> pawns;
-	Pawn * selectedPawn;
+	vector<Pawn *> pawns;
+	vector<Pawn *>::iterator selectedPawn;
 	string name; // orval, jupiler, etc
 
 public:
@@ -34,6 +35,8 @@ public:
 	void update();
 
 	void play(int p, vertex* v);
+
+	void nextPawn();
 
 };
 

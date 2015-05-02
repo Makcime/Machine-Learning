@@ -59,13 +59,15 @@ private:
 	GameDeck* deck;
 	Player* playerOne;
 	Player* playerTwo;
-	
+	Player* currentPlayer;
 
 public:
 	GameOfMill();
 	~GameOfMill();
 
 	void draw();
+
+	void nextPawn();
 	
 };
 

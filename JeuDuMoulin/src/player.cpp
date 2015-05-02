@@ -7,8 +7,8 @@ Player::Player(int pawnsNb, string name){
 	this->name = name;
 	for (int i = 0; i < pawnsNb; ++i)
 		this->pawns.push_back(new Pawn(this->name));
-	selectedPawn = this->pawns.front();
-	selectedPawn->select(true);
+	selectedPawn = this->pawns.begin();
+	(*selectedPawn)->select(true);
 }
 
 Player::~Player(){
@@ -42,5 +42,10 @@ void Player::play(int p, vertex* v){
 	this->pawns[p]->setPosition(v);
 }
 
-
-
+void Player::nextPawn(){
+	(*selectedPawn)->select(false);
+	advance(selectedPawn, 1);
+	if(selectedPawn == pawns.end())
+		selectedPawn = pawns.begin();
+	(*selectedPawn)->select(true);
+}
