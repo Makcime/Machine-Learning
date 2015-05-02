@@ -8,6 +8,7 @@ vertex::vertex(){
 vertex::vertex(int i, int h, int w, int map_size, int sqrt_size){
 	indice = i;
 	setPosition(h, w, map_size, sqrt_size);
+	this->selected = false;
 }
 
 
@@ -143,6 +144,15 @@ void vertex::computeWeights(){
 		p2 = position;
 		connected[i].weight = (int) sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 	}
+}
+
+void vertex::select(bool s){
+	this->selected = s;
+}
+
+
+bool vertex::isSelected(){
+	return this->selected;
 }
 
 

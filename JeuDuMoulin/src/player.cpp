@@ -38,8 +38,8 @@ void Player::draw(int x, int y){
 	}
 }
 
-void Player::play(int p, vertex* v){
-	this->pawns[p]->setPosition(v);
+void Player::play(vertex* v){
+	(*selectedPawn)->setPosition(v);
 }
 
 void Player::nextPawn(){

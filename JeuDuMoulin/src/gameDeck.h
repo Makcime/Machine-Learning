@@ -18,12 +18,16 @@ class GameDeck : public graph
 private:
 	// graph* gameGraph;
 	ofImage background;
+	vector<vertex *>::iterator selectedVertex;
 
 public:
 	GameDeck();
 	~GameDeck();
 
 	void draw(int x, int y);
+	void nextPlace();
+	vertex * getSelection();
+
 	
 };
 

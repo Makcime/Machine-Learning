@@ -60,6 +60,7 @@ private:
 	Player* playerOne;
 	Player* playerTwo;
 	Player* currentPlayer;
+	int playerCnt;
 
 public:
 	GameOfMill();
@@ -67,7 +68,10 @@ public:
 
 	void draw();
 
-	void nextPawn();
+	void selectPawn();
+    void selectPlace();
+    void Play();
+
 	
 };
 

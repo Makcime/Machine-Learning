@@ -32,8 +32,9 @@ struct path
 	vector < vertex * >	nodes;
 	int cost;
 };
-private:
+protected:
 	vector < vertex * > map;
+private:
 	path path_found;
 	vector < path > file;
 

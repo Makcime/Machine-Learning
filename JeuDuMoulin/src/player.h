@@ -34,7 +34,7 @@ public:
 	void draw(int x, int y);
 	void update();
 
-	void play(int p, vertex* v);
+	void play(vertex* v);
 
 	void nextPawn();
 

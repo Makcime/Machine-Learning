@@ -42,6 +42,8 @@ private:
 
     int heuristic;
 
+    bool selected;
+
 public:
     vertex();
     vertex(int i, int h, int w, int map_size, int sqrt_size);
@@ -74,6 +76,9 @@ public:
     void draw();
 
     int getCost(vertex *v);
+
+    void select(bool s);
+    bool isSelected();
 
 };
 

@@ -14,20 +14,7 @@ GameOfMill::GameOfMill(){
 	playerOne = new Player(PAWN_NUMBER, beers[p1]);
 	playerTwo = new Player(PAWN_NUMBER, beers[p2]);
 
-	
-	for (int i = 0; i < 5; ++i)
-	{
-		int j = ofRandom(48);
-		if(deck->getMap()[j]->getConCnt())
-			playerOne->play(ofRandom(PAWN_NUMBER) ,deck->getMap()[j]);
-	}
-	for (int i = 0; i < 5; ++i)
-	{
-		int j = ofRandom(48);
-		if(deck->getMap()[j]->getConCnt())
-			playerTwo->play(ofRandom(PAWN_NUMBER) ,deck->getMap()[j]);
-	}
-
+	playerCnt = 1;
 	currentPlayer = playerOne;
 
 }
@@ -66,6 +53,18 @@ void GameOfMill::draw(){
 }
 
 
-void GameOfMill::nextPawn(){
+void GameOfMill::selectPawn(){
 	this->currentPlayer->nextPawn();
+}
+
+void GameOfMill::selectPlace(){
+	this->deck->nextPlace();
+}
+
+void GameOfMill::Play(){
+	currentPlayer->play(deck->getSelection());
+	if((playerCnt++)%2)
+		currentPlayer = playerTwo;
+	else
+		currentPlayer = playerOne;
 }

@@ -33,9 +33,13 @@ void ofApp::keyPressed(int key){
     case 'g':
         break;
     case 'n':
-        game->nextPawn();
+        game->selectPawn();
         break;
-    case 'r':
+    case 'b':
+        game->selectPlace();
+        break;
+    case 'p':
+        game->Play();
         break;
     default:
         break;
