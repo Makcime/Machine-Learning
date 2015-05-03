@@ -28,13 +28,14 @@ void GameDeck::draw(int x, int y){
 
 }
 
-void GameDeck::nextPlace(){
+void GameDeck::nextPlace(int* p){
 	(*selectedVertex)->select(false);
 	do{
 		advance(selectedVertex, 1);
 		if(selectedVertex == map.end())
 			selectedVertex = map.begin();
-	}while(!((*selectedVertex)->getConCnt()));
+	// }while(!((*selectedVertex)->getConCnt()));
+	}while(*(p+(*selectedVertex)->getId()));
 
 	(*selectedVertex)->select(true);
 }

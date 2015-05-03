@@ -4,6 +4,9 @@ GameOfMill::GameOfMill(){
 
 	deck = new GameDeck();
 
+	bg.loadImage(BG);
+
+
 	// generate 2 different random numbers
 	int p1 = ofRandom(BEERS);
 	int p2 = p1;
@@ -32,6 +35,10 @@ void GameOfMill::draw(){
 	int screenW = ofGetWidth();
 	int delta = (screenH - (screenW/2)) / 2;
 
+	bg.resize(screenW, screenH);
+	ofSetColor(255);
+	bg.draw(0, 0);
+
 	// Draw the game
 	deck->draw((screenW / 2) - delta, delta);
 
@@ -52,6 +59,7 @@ void GameOfMill::draw(){
 	ofSetColor(0);
 	ofLine((screenW/2) - (2*delta), 0, (screenW/2) - (2*delta) , screenH);
 
+
 }
 
 
@@ -60,19 +68,22 @@ void GameOfMill::selectPawn(){
 }
 
 void GameOfMill::selectPlace(){
-	this->deck->nextPlace();
+	this->deck->nextPlace(gameState);
 }
 
 void GameOfMill::Play(){
 
 	int oldId = currentPlayer->getSelected()->getPositionById();
-	gameState[oldId] = 0;
-	gameState[deck->getSelectionById()] = (playerCnt-1)%2+1; 
-	currentPlayer->play(deck->getSelection());
-	if((playerCnt++)%2)
-		currentPlayer = playerTwo;
-	else
-		currentPlayer = playerOne;
+	if(currentPlayer->play(deck->getSelection())){
+		gameState[oldId] = 0;
+		gameState[deck->getSelectionById()] = (playerCnt-1)%2+1; 
+		if((playerCnt++)%2)
+			currentPlayer = playerTwo;
+		else
+			currentPlayer = playerOne;
+	}
+
+	selectPlace();
 	printf("\n|----------------------------|\n|");
 	for (int i = 0; i < MAP_SIZE; ++i)
 	{

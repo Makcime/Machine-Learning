@@ -14,6 +14,7 @@
 
 #define PAWN_NUMBER 9
 #define BEERS 10
+#define BG "../data/images/background.png"
 
 class GameOfMill
 {
@@ -55,6 +56,11 @@ private:
 	{32,40,48}
 	};
 
+	// struct state
+	// {
+	// 	int player;
+	// };
+
 	int gameState[MAP_SIZE] = {0};
 
 	GameDeck* deck;
@@ -62,6 +68,8 @@ private:
 	Player* playerTwo;
 	Player* currentPlayer;
 	int playerCnt;
+
+	ofImage bg;
 
 public:
 	GameOfMill();

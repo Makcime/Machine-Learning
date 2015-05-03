@@ -25,7 +25,7 @@ public:
 	~GameDeck();
 
 	void draw(int x, int y);
-	void nextPlace();
+	void nextPlace(int* p);
 	vertex * getSelection();
 	int getSelectionById();
 

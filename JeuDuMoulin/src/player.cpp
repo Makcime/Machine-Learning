@@ -38,9 +38,22 @@ void Player::draw(int x, int y){
 	}
 }
 
-void Player::play(vertex* v){
-	(*selectedPawn)->setPosition(v);
-	nextPawn();
+bool Player::play(vertex* v){
+	if((*selectedPawn)->getPosition()){
+		vector<vertex *> ngbrs = (*selectedPawn)->getPosition()->getNeighbours();
+		for (std::vector<vertex *>::iterator i = ngbrs.begin(); i != ngbrs.end(); ++i){
+			if(v == (*i)){
+				(*selectedPawn)->setPosition(v);
+				nextPawn();
+				return true;
+			}	
+		}
+	}else{
+		(*selectedPawn)->setPosition(v);
+		nextPawn();
+		return true;
+	}
+	return false;
 }
 
 void Player::nextPawn(){

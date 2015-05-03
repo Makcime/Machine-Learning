@@ -34,7 +34,7 @@ public:
 	void draw(int x, int y);
 	void update();
 
-	void play(vertex* v);
+	bool play(vertex* v);
 
 	Pawn* getSelected();
 
