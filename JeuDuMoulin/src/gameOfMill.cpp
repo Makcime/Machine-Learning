@@ -45,7 +45,10 @@ void GameOfMill::draw(){
 	ofTrueTypeFont myfont;
 	myfont.loadFont("arial.ttf", 40);
 
+
 	ofSetColor(0);
+	if(currentPlayer == playerOne)
+		ofSetColor(ofColor::red);
 	myfont.drawString("Player One :", 100 , 75 );
 	playerOne->draw(100, 130);
 
@@ -53,6 +56,8 @@ void GameOfMill::draw(){
 	ofLine(0, screenH/2, (screenW/2) - (2*delta), screenH/2);
 
 	ofSetColor(0);
+	if(currentPlayer == playerTwo)
+		ofSetColor(ofColor::red);
 	myfont.drawString("Player Two :", 100,  (screenH/2)+75);
 	playerTwo->draw(100, (screenH/2)+130);
 
@@ -82,7 +87,7 @@ void GameOfMill::Play(){
 		else
 			currentPlayer = playerOne;
 	}
-
+	CheckMills();
 	selectPlace();
 	printf("\n|----------------------------|\n|");
 	for (int i = 0; i < MAP_SIZE; ++i)
@@ -95,4 +100,20 @@ void GameOfMill::Play(){
 			printf("    ");
 	}
 	puts("|\n|----------------------------|");
+}
+
+void GameOfMill::CheckMills(){
+	int p = 0;
+	while (p<2){
+		++p;
+		for (int i = 0; i < MILLS; ++i){
+			if(gameState[Mills[i][0]] == p & 
+				gameState[Mills[i][1]] == p &
+				gameState[Mills[i][2]] == p){
+				printf("Mill for player %d\n", p);
+				printf("%d-%d-%d\n", Mills[i][0],Mills[i][1],Mills[i][2]);
+			}
+		}
+	}
+
 }

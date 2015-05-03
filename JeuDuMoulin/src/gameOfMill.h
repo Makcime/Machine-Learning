@@ -16,6 +16,8 @@
 #define BEERS 10
 #define BG "../data/images/background.png"
 
+#define MILLS 20
+ 
 class GameOfMill
 {
 
@@ -33,7 +35,7 @@ private:
 	"westmalle"		
 	 };
 
-	int winningMove[20][3]{
+	int Mills[MILLS][3]{
 	{0,3,6},
 	{8,10,12},
 	{16,17,18},
@@ -80,6 +82,7 @@ public:
 	void selectPawn();
     void selectPlace();
     void Play();
+    void CheckMills();
 
 	
 };
