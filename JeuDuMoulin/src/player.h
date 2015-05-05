@@ -26,6 +26,8 @@ private:
 	vector<Pawn *>::iterator selectedPawn;
 	string name; // orval, jupiler, etc
 
+	bool miller;
+
 public:
 	Player();
 	Player(int pawnsNb, string name);
@@ -39,7 +41,14 @@ public:
 	Pawn* getSelected();
 
 	void nextPawn();
+	void rmPawn();
 
+	string getName();
+
+	bool isMilling();
+	void setMiller(bool s);
+
+	int getPawnsCnt();
 };
 
 #endif

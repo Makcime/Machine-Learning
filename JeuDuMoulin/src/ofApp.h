@@ -7,6 +7,12 @@
 #include "ofMain.h"
 #include "gameOfMill.h"
 
+#define KEY_LEFT 356
+#define KEY_UP 357
+#define KEY_RIGHT 358
+#define KEY_DOWN 359
+#define KEY_ENTER 13
+
 class ofApp : public ofBaseApp{
 
 	private:

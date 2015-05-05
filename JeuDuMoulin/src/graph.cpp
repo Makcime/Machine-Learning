@@ -121,13 +121,13 @@ void graph::draw(){
 	    	if(map[i]->isChecked()){
 		    	ofSetColor(ofColor::green);
 	    	}
-	    	ofCircle(x, y, 30);
+	    	ofCircle(x, y, 10);
 
-	    	// ofSetColor(ofColor::white);
-	    	// ss << map[i]->getHeuristic() << endl;
-	    	// ss << map[i]->getId();
-		    // myfont.drawString(ss.str(), x,y);
-	    	// ofSetColor(ofColor::black);
+	    	ofSetColor(ofColor::white);
+	    	ss << map[i]->getHeuristic() << endl;
+	    	ss << map[i]->getId();
+		    myfont.drawString(ss.str(), x,y);
+	    	ofSetColor(ofColor::black);
 		}	
 
 	}

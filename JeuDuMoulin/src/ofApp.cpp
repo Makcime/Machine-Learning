@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofToggleFullscreen();
-
+    ofSetFrameRate(20);
     game = new GameOfMill();
 }
 
@@ -30,16 +30,20 @@ void ofApp::keyPressed(int key){
     case 'f':
         ofToggleFullscreen();
         break;
-    case 'g':
+    case KEY_RIGHT:
+        game->select();
         break;
-    case 'n':
-        game->selectPawn();
+    case KEY_LEFT:
+        game->select();
         break;
-    case 'b':
+    case KEY_DOWN:
         game->selectPlace();
         break;
-    case 'p':
-        game->Play();
+    case KEY_UP:
+        game->selectPlace();
+        break;
+    case KEY_ENTER:
+        game->Go();
         break;
     default:
         break;

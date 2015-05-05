@@ -19,12 +19,13 @@ void GameDeck::draw(int x, int y){
 	ofSetColor(255);
 	background.draw(x, y);
 
-	// graph::draw();
 
 	point p = (*selectedVertex)->getPosition();
 	ofSetColor(ofColor::green);
 	ofFill();
 	ofCircle(p.x, p.y, 15);
+	
+	// graph::draw();
 
 }
 

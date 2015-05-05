@@ -13,26 +13,31 @@
 #include "player.h"
 
 #define PAWN_NUMBER 9
-#define BEERS 10
+#define BEERS 14
 #define BG "../data/images/background.png"
 
 #define MILLS 20
- 
+
+
 class GameOfMill
 {
 
 private:
 	string beers[BEERS] = {
 	"barbar",
+	"bernardus",
 	"carapils",
 	"chimay",
+	"chouffe",
 	"duff",
 	"jupiler",
 	"karmeliet",
 	"kwak",
 	"leffe",
 	"orval",
-	"westmalle"		
+	"rochefort",
+	"vedett",
+	"westmalle",
 	 };
 
 	int Mills[MILLS][3]{
@@ -58,20 +63,22 @@ private:
 	{32,40,48}
 	};
 
-	// struct state
-	// {
-	// 	int player;
-	// };
-
 	int gameState[MAP_SIZE] = {0};
 
 	GameDeck* deck;
 	Player* playerOne;
 	Player* playerTwo;
 	Player* currentPlayer;
+	Player* opponentPlayer;
 	int playerCnt;
 
 	ofImage bg;
+
+	enum phase{PLACEMENT, MOUVEMENT, REMOVING, EOG};
+
+	int gamePhase;
+
+	// bool endOfGame;
 
 public:
 	GameOfMill();
@@ -80,10 +87,15 @@ public:
 	void draw();
 
 	void selectPawn();
+	void selectPawnToRm();
     void selectPlace();
     void Play();
-    void CheckMills();
+    void Go();
+    void select();
+    void newPhase();
+    void CheckMills(Player* pl);
 
+    void pawnCapture();
 	
 };
 

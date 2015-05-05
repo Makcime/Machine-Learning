@@ -9,6 +9,8 @@ Player::Player(int pawnsNb, string name){
 		this->pawns.push_back(new Pawn(this->name));
 	selectedPawn = this->pawns.begin();
 	(*selectedPawn)->select(true);
+
+	this->miller = false;
 }
 
 Player::~Player(){
@@ -44,13 +46,13 @@ bool Player::play(vertex* v){
 		for (std::vector<vertex *>::iterator i = ngbrs.begin(); i != ngbrs.end(); ++i){
 			if(v == (*i)){
 				(*selectedPawn)->setPosition(v);
-				nextPawn();
+				// nextPawn();
 				return true;
 			}	
 		}
 	}else{
 		(*selectedPawn)->setPosition(v);
-		nextPawn();
+		// nextPawn();
 		return true;
 	}
 	return false;
@@ -66,4 +68,26 @@ void Player::nextPawn(){
 
 Pawn* Player::getSelected(){
 	return (*selectedPawn);
+}
+
+void Player::rmPawn(){
+	pawns.erase(selectedPawn);
+	selectedPawn = pawns.begin();
+}
+
+string Player::getName(){
+	transform(this->name.begin(), this->name.begin()+1,this->name.begin(), ::toupper);
+	return this->name;
+}
+
+bool Player::isMilling(){
+	return this->miller;
+}
+
+void Player::setMiller(bool s){
+	this->miller = s;
+}
+
+int Player::getPawnsCnt(){
+	return this->pawns.size();
 }
