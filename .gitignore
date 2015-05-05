@@ -4,4 +4,4 @@
 */bin/JeuDuMoulin
 */bin/GraphSearch
 *.ipynb_checkpoints/
-
+*img/
