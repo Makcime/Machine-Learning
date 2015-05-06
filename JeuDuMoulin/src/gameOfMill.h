@@ -16,7 +16,7 @@
 #define BEERS 14
 #define BG "../data/images/background.png"
 
-#define MILLS 20
+#define MILLS 16
 
 
 class GameOfMill
@@ -56,11 +56,11 @@ private:
 	{31,38,45},
 	{18,25,32},
 	{12,26,40},
-	{6,27,48},
-	{0,8,16},
-	{6,12,18},
-	{30,36,42},
-	{32,40,48}
+	{6,27,48}
+	// {0,8,16},
+	// {6,12,18},
+	// {30,36,42},
+	// {32,40,48}
 	};
 
 	int gameState[MAP_SIZE] = {0};

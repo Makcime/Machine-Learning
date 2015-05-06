@@ -26,6 +26,8 @@ public:
 
 	void draw(int x, int y);
 	void nextPlace(int* p);
+	void nextNeighbours(vertex* p, int* g);
+
 	vertex * getSelection();
 	int getSelectionById();
 

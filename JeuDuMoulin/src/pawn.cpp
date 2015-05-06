@@ -10,6 +10,8 @@ Pawn::Pawn(string s){
 	cap.resize(IMG_SIZE, IMG_SIZE);
 
 	this->selected = false;
+
+	this->movable = true;
 }
 
 Pawn::~Pawn(){
@@ -44,5 +46,14 @@ void Pawn::setPosition(vertex* pos){
 void Pawn::select(bool s){
 	this->selected = s;
 }
+
+bool Pawn::canMove(){
+	return this->movable;
+}
+
+void Pawn::movability(bool m){
+	this->movable = m;
+}
+
 
 

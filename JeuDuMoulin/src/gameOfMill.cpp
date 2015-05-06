@@ -25,8 +25,11 @@ GameOfMill::GameOfMill(){
 
 	// gamePhase = PLACEMENT;
 	newPhase();
+	for (int i = 0; i < MILLS; ++i)
+		printf("i : %d -- %d-%d-%d\n",i, Mills[i][0],Mills[i][1],Mills[i][2]);
 
-
+	for (int i = 0; i < BEERS; ++i)
+		cout << beers[i] << endl;
 }
 
 GameOfMill::~GameOfMill(){
@@ -105,14 +108,23 @@ void GameOfMill::selectPawnToRm(){
 
 
 void GameOfMill::selectPlace(){
-	this->deck->nextPlace(gameState);
+	switch(gamePhase){
+		case PLACEMENT:
+			this->deck->nextPlace(gameState);
+			break;
+		case MOUVEMENT:
+			this->deck->nextNeighbours(
+				currentPlayer->getSelected()->getPosition(), gameState);
+			break;
+	}
 }
 
 void GameOfMill::Play(){
 
 	int oldId = currentPlayer->getSelected()->getPositionById();
 	if(currentPlayer->play(deck->getSelection())){
-		gameState[oldId] = 0;
+		// if(oldId >= 0)
+			gameState[oldId] = 0;
 		gameState[deck->getSelectionById()] = (playerCnt-1)%2+1;
 		playerCnt++;
 	}
@@ -151,14 +163,13 @@ void GameOfMill::CheckMills(Player* pl){
 	if(pl == playerOne) p=1;
 	else if(pl == playerTwo) p=2;
 	for (int i = 0; i < MILLS; ++i){
-		if(gameState[Mills[i][0]] == p & 
-			gameState[Mills[i][1]] == p &
-			gameState[Mills[i][2]] == p){
-			if(playedPawn == Mills[i][0] 
-				|| playedPawn == Mills[i][1] 
-				|| playedPawn == Mills[i][2]){
-				printf("Mill for player %s\n", pl->getName().c_str());
-				printf("%d-%d-%d\n", Mills[i][0],Mills[i][1],Mills[i][2]);
+		if((gameState[Mills[i][0]] == p) &&
+			(gameState[Mills[i][1]] == p) &&
+			(gameState[Mills[i][2]] == p)){
+			if((playedPawn == Mills[i][0]) 
+				|| (playedPawn == Mills[i][1]) 
+				|| (playedPawn == Mills[i][2])) {
+				// printf("Mill for player %s\n", pl->getName().c_str());
 				pl->setMiller(true);
 			} 
 		}

@@ -66,6 +66,17 @@ void Player::nextPawn(){
 	(*selectedPawn)->select(true);
 }
 
+void Player::nextMovablePawn(){
+	(*selectedPawn)->select(false);
+	do{
+		advance(selectedPawn, 1);
+		if(selectedPawn == pawns.end())
+		selectedPawn = pawns.begin();
+	}while(!(*selectedPawn)->canMove());
+
+	(*selectedPawn)->select(true);
+}
+
 Pawn* Player::getSelected(){
 	return (*selectedPawn);
 }

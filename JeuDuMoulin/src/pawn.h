@@ -31,6 +31,8 @@ private:
 
 	bool selected;
 
+	bool movable;
+
 public:
 	Pawn();
 	Pawn(string s);
@@ -44,6 +46,9 @@ public:
 	void setPosition(vertex* pos);
 
 	void select(bool s);
+
+	bool canMove();
+	void movability(bool m);
 
 };
 

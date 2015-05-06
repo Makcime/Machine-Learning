@@ -49,6 +49,9 @@ public:
 	void setMiller(bool s);
 
 	int getPawnsCnt();
+
+	void nextMovablePawn();
+
 };
 
 #endif
