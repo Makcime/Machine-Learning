@@ -66,6 +66,16 @@ void Player::nextPawn(){
 	(*selectedPawn)->select(true);
 }
 
+void Player::nextFreePawn(){
+	(*selectedPawn)->select(false);
+	for (std::vector<Pawn*>::iterator i = pawns.begin();
+		i != pawns.end(); ++i)
+		if(!(*i)->getPosition())
+			selectedPawn = i;
+	(*selectedPawn)->select(true);
+}
+
+
 void Player::nextMovablePawn(){
 	(*selectedPawn)->select(false);
 	do{
@@ -101,4 +111,20 @@ void Player::setMiller(bool s){
 
 int Player::getPawnsCnt(){
 	return this->pawns.size();
+}
+
+void Player::selectPawn(Pawn* p){
+	for (vector<Pawn*>::iterator iter = pawns.begin(); 
+		iter != pawns.end(); ++iter){
+		if((*iter) == p)
+			this->selectedPawn = iter;
+	}	
+}
+
+void Player::selectPawn(int p){
+	for (vector<Pawn*>::iterator iter = pawns.begin(); 
+		iter != pawns.end(); ++iter){
+		if((*iter)->getPositionById() == p)
+			this->selectedPawn = iter;
+	}	
 }

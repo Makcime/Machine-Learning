@@ -31,6 +31,9 @@ public:
 	vertex * getSelection();
 	int getSelectionById();
 
+	void selectVertex(vertex* v);
+	void selectVertex(int v);
+
 	void initGameState(int* p);
 
 	

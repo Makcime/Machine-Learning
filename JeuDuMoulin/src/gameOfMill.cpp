@@ -14,22 +14,24 @@ GameOfMill::GameOfMill(){
 	while(p2 == p1)
 		p2 = ofRandom(BEERS);
 
+	deck->initGameState(gameState);
+
 	playerOne = new Player(PAWN_NUMBER, beers[p1]);
 	playerTwo = new Player(PAWN_NUMBER, beers[p2]);
+	computerPlayer = new GOM_Ai(playerTwo, playerOne, deck);
 
 	playerCnt = 1;
 	currentPlayer = playerOne;
 	opponentPlayer = playerTwo;
 
-	deck->initGameState(gameState);
 
 	// gamePhase = PLACEMENT;
 	newPhase();
-	for (int i = 0; i < MILLS; ++i)
-		printf("i : %d -- %d-%d-%d\n",i, Mills[i][0],Mills[i][1],Mills[i][2]);
+	// for (int i = 0; i < MILLS; ++i)
+	// 	printf("i : %d -- %d-%d-%d\n",i, Mills[i][0],Mills[i][1],Mills[i][2]);
 
-	for (int i = 0; i < BEERS; ++i)
-		cout << beers[i] << endl;
+	// for (int i = 0; i < BEERS; ++i)
+	// 	cout << beers[i] << endl;
 }
 
 GameOfMill::~GameOfMill(){
@@ -122,15 +124,22 @@ void GameOfMill::selectPlace(){
 void GameOfMill::Play(){
 
 	int oldId = currentPlayer->getSelected()->getPositionById();
+
+	if(currentPlayer == playerTwo){
+		computerPlayer->play(gamePhase, gameState);
+	}
+
 	if(currentPlayer->play(deck->getSelection())){
-		// if(oldId >= 0)
+		if(oldId >= 0)
 			gameState[oldId] = 0;
 		gameState[deck->getSelectionById()] = (playerCnt-1)%2+1;
 		playerCnt++;
 	}
+
 	CheckMills(currentPlayer);
+
 	if(!currentPlayer->isMilling()){
-		currentPlayer->nextPawn();
+		// currentPlayer->nextPawn();
 		if(!((playerCnt)%2)){
 			currentPlayer = playerTwo;
 			opponentPlayer = playerOne;
@@ -140,21 +149,28 @@ void GameOfMill::Play(){
 			opponentPlayer = playerTwo;
 		}
 		newPhase();
+		select();
 	}else
 		gamePhase = REMOVING;
+
+	if(currentPlayer == playerTwo){
+		Go();
+	}
 	
 	selectPlace();
-	printf("\n|----------------------------|\n|");
-	for (int i = 0; i < MAP_SIZE; ++i)
-	{
-		if((!(i%7)) & i!=0)
-			printf("|\n|");
-		if(gameState[i]>=0)
-			printf(" %02d ", gameState[i]);
-		else
-			printf("    ");
-	}
-	puts("|\n|----------------------------|");
+
+	// printf("\n|----------------------------|\n|");
+	// for (int i = 0; i < MAP_SIZE; ++i)
+	// {
+	// 	if((!(i%7)) & i!=0)
+	// 		printf("|\n|");
+	// 	if(gameState[i]>=0)
+	// 		printf(" %02d ", gameState[i]);
+	// 		// printf(" %02d ",i);
+	// 	else
+	// 		printf("    ");
+	// }
+	// puts("|\n|----------------------------|");
 }
 
 void GameOfMill::CheckMills(Player* pl){
@@ -190,9 +206,13 @@ void GameOfMill::pawnCapture(){
 		opponentPlayer = playerTwo;
 	}
 	newPhase();
+	if(currentPlayer == playerTwo){
+		Go();
+	}
 }
 
 void GameOfMill::Go(){
+	printf("gamePhase : %d\n",gamePhase );
 	switch(gamePhase){
 		case PLACEMENT:
 			Play();
@@ -209,10 +229,12 @@ void GameOfMill::Go(){
 void GameOfMill::select(){
 	switch(gamePhase){
 		case PLACEMENT:
-			selectPawn();
+			// selectPawn();
+			this->currentPlayer->nextFreePawn();
 			break;
 		case MOUVEMENT:
-			selectPawn();
+			this->currentPlayer->nextPawn();
+			// selectPawn();
 			break;
 		case REMOVING:
 			selectPawnToRm();
@@ -229,3 +251,4 @@ void GameOfMill::newPhase(){
 	else
 		gamePhase = PLACEMENT;
 }
+

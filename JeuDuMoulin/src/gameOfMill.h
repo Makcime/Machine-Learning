@@ -11,6 +11,7 @@
 
 #include "gameDeck.h"
 #include "player.h"
+#include "gom_ai.h"
 
 #define PAWN_NUMBER 9
 #define BEERS 14
@@ -40,7 +41,7 @@ private:
 	"westmalle",
 	 };
 
-	int Mills[MILLS][3]{
+	int Mills[MILLS][3] = {
 	{0,3,6},
 	{8,10,12},
 	{16,17,18},
@@ -68,6 +69,7 @@ private:
 	GameDeck* deck;
 	Player* playerOne;
 	Player* playerTwo;
+	GOM_Ai* computerPlayer;
 	Player* currentPlayer;
 	Player* opponentPlayer;
 	int playerCnt;

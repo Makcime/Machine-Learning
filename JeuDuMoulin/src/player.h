@@ -22,6 +22,7 @@ class Player
 
 private:
 
+protected:
 	vector<Pawn *> pawns;
 	vector<Pawn *>::iterator selectedPawn;
 	string name; // orval, jupiler, etc
@@ -39,8 +40,11 @@ public:
 	bool play(vertex* v);
 
 	Pawn* getSelected();
+	void selectPawn(Pawn* p);
+	void selectPawn(int p);
 
 	void nextPawn();
+	void nextFreePawn();
 	void rmPawn();
 
 	string getName();

@@ -50,11 +50,11 @@ void GameDeck::nextNeighbours(vertex* p, int* g){
 	int pika = 0;
 	vector<vertex *>::iterator j;
 
-	puts("");
-	printf("id %d\n", p->getId());
-	printf("selectedVertex : %d \n", (*selectedVertex)->getId());
+	// puts("");
+	// printf("id %d\n", p->getId());
+	// printf("selectedVertex : %d \n", (*selectedVertex)->getId());
 	for (std::vector<vertex *>::iterator i = ngbrs.begin(); i != ngbrs.end(); ++i){
-		printf("ngbrs : %d \n", (*i)->getId());
+		// printf("ngbrs : %d \n", (*i)->getId());
 		if((*i)->getId() == (*selectedVertex)->getId()){
 			if(i != ngbrs.end()-1)
 				j = i+1;
@@ -69,7 +69,7 @@ void GameDeck::nextNeighbours(vertex* p, int* g){
 				}
 				j++;
 			}
-			printf("Pika : %d \n", pika);
+			// printf("Pika : %d \n", pika);
 		}
 	}
 
@@ -91,8 +91,8 @@ void GameDeck::nextNeighbours(vertex* p, int* g){
 				selectedVertex = map.begin();
 		}
 
-	printf("Pika : %d \n", pika);
-	printf("selectedVertex : %d \n", (*selectedVertex)->getId());
+	// printf("Pika : %d \n", pika);
+	// printf("selectedVertex : %d \n", (*selectedVertex)->getId());
 	(*selectedVertex)->select(true);
 }
 
@@ -112,4 +112,19 @@ void GameDeck::initGameState(int* p){
 	for (int i = 0; i < MAP_SIZE; ++i)
 		if(map[i]->getConCnt() == 0)
 			*(p+i) = -1;
+}
+
+void GameDeck::selectVertex(vertex* v){
+	for (vector<vertex*>::iterator iter = map.begin(); 
+		iter != map.end(); ++iter){
+		if((*iter) == v)
+			this->selectedVertex = iter;
+	}	
+}
+
+void GameDeck::selectVertex(int v){
+	for (std::vector<vertex*>::iterator i = map.begin(); 
+		i != map.end(); ++i)
+		if((*i)->getId() == v)
+			this->selectedVertex = i;
 }
