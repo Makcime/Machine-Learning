@@ -1,0 +1,15 @@
+[ArchiOrdis] Consignes rapport
+
+Bonjour,
+
+Voici, dans les grandes lignes, la structure demandée pour votre rapport du cours d'Architecture des Ordinateurs :
+
+    Partie 1 (Algorithmes de recherche) : Quel logiciel/langage utilisé, description des algorithmes implémentés de manière très succincte, description de l'application choisie pour tester vos algorithmes et comparaison des résultats de ces algorithmes en termes de qualité du chemin choisi, de rapidité de l'algorithme, de mémoire utilisée...
+    Partie 2 (jeux) : Quel logiciel/langage utilisé, description du jeu choisi et de la manière dont vous l'avez implémenté (les choix d'implémentation tels que la fonction d'évaluation choisie, la profondeur utilisée dans l'arbre, les optimisations mises en place, la flexibilité éventuelle de votre algorithme...)
+    Partie 3 (Contraintes) : Quel logiciel/langage utilisé, quelle application choisie, quel algorithme utilisé, quelle bibliothèque utilisée si vous en avez utilisée une.
+    Exercices annexes : Réponses aux exercices
+    Bibliographie éventuelle: si vous vous êtes inspirés d'exemples existants ou de librairies particulières, d'interfaces graphiques existantes, n'oubliez pas de les mentionner dans votre bibliographie
+
+Cordialement,
+
+A. Degeest
