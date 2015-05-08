@@ -299,6 +299,7 @@ void graph::next_hop(){
 			rs.speed = cnt;
 			cnt = 0;
 			rs.memory = max_queue_zise;
+			max_queue_zise = 0;
 			rs.pth = path_found.nodes.size();
 			rs.cst = path_found.cost;
 			rs.goal = goal->getId();
