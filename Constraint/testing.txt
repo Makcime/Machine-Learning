@@ -1,0 +1,20 @@
+max@max-P6631 ~/Documents/of_v0.8.4_linux64_release/apps/Machine-Learning/Constraint $ python MinConflictsSolver.py 
+temps de calcul = 0.499 secondes
+Traceback (most recent call last):
+  File "MinConflictsSolver.py", line 48, in <module>
+    print "   SEND \t    %d%d%d%d" % (sol["S"], sol["E"], sol["N"], sol["D"])
+TypeError: 'NoneType' object has no attribute '__getitem__'
+max@max-P6631 ~/Documents/of_v0.8.4_linux64_release/apps/Machine-Learning/Constraint $ python BacktrackingSolver.py 
+temps de calcul = 6.720 secondes
+   SEND 	    9567
+ + MORE 	  + 1085
+------- 	 -------
+= MONEY 	 = 10652
+max@max-P6631 ~/Documents/of_v0.8.4_linux64_release/apps/Machine-Learning/Constraint $ python RecursiveBacktrackingSolver.py 
+temps de calcul = 0.118 secondes
+   SEND 	    9567
+ + MORE 	  + 1085
+------- 	 -------
+= MONEY 	 = 10652
+max@max-P6631 ~/Documents/of_v0.8.4_linux64_release/apps/Machine-Learning/Constraint $ 
+
