@@ -146,9 +146,12 @@ void ofApp::keyPressed(int key){
     	for(int i = 0; i < 256; i++) { buffer[i] = ofNoise(i/100.0, plop+=0.0003); }
         break;
     case 'r':
-		myGraph->resetGraph(globSet.start, 
-							globSet.goal, 
-							globSet.algo); 
+        myGraph->resetGraph(globSet.start, 
+                            globSet.goal, 
+                            globSet.algo); 
+        break;
+    case 't':
+        myGraph->testing(); 
         break;
     default:
         break;

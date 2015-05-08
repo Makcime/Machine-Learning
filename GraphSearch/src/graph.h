@@ -32,10 +32,18 @@ struct path
 	vector < vertex * >	nodes;
 	int cost;
 };
+
+struct result
+{
+	int algo, speed, memory, pth, cst, start, goal;
+};
+
 private:
 	vector < vertex * > map;
 	path path_found;
 	vector < path > file;
+
+	vector < result > resultSet;
 
 	vertex *start, *goal;
 
@@ -79,6 +87,10 @@ public:
 	void addAtRandom(vector<path> vp);
 	void addWithHeuristic(vector<path> vp);
 	void addWithCost(vector<path> vp);
+
+	void testing();
+	void printResults();
+
 
 
 };

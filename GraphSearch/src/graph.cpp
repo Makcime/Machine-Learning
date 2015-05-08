@@ -27,7 +27,7 @@ graph::graph(){
 		k++;
 	} 
 
-	print_map_as_matrix();
+	// print_map_as_matrix();
 
 	start = map[6];
 	goal = map[43];
@@ -203,7 +203,17 @@ void graph::addWithCost(vector<path> vp){
 
 // vector <vertex *> graph::compute_hop_dfs(){
 void graph::next_hop(){
+	static int cnt = 0;
+	static int max_queue_zise = 0;
+	cnt++;
+	
+	if(this->file.size()>max_queue_zise)
+		max_queue_zise = this->file.size();
 
+
+	// printf("cnt = %d\n", cnt);
+	// printf("max_queue_zise = %d\n", max_queue_zise);
+	
 	path new_path, last_path, eeuc_last_path;
 	vector<path> new_path_list;
 	vertex * last_node;
@@ -213,10 +223,10 @@ void graph::next_hop(){
 		last_path = file.back(); // remove the first path from the QUEUE (FILE);
 		file.pop_back();
 
-		printf("\npath : [");
-		for (int j = 0; j < last_path.nodes.size(); ++j)
-			printf("%d,", last_path.nodes[j]->getId());
-			printf("] -> cost : %d\n", last_path.cost);
+		// printf("\npath : [");
+		// for (int j = 0; j < last_path.nodes.size(); ++j)
+		// 	printf("%d,", last_path.nodes[j]->getId());
+		// 	printf("] -> cost : %d\n", last_path.cost);
 		
 		last_node = last_path.nodes.back();
 
@@ -230,10 +240,10 @@ void graph::next_hop(){
 				computeCost(&new_path);
 				new_path_list.push_back(new_path);
 
-				printf("\tNEW path : [");
-				for (int j = 0; j < new_path.nodes.size(); ++j)
-					printf("%d,", new_path.nodes[j]->getId() );
-				printf("] -> cost : %d\n", new_path.cost);
+				// printf("\tNEW path : [");
+				// for (int j = 0; j < new_path.nodes.size(); ++j)
+				// 	printf("%d,", new_path.nodes[j]->getId() );
+				// printf("] -> cost : %d\n", new_path.cost);
 			}
 		}
 
@@ -258,34 +268,74 @@ void graph::next_hop(){
 			eeuc_last_path = file.back();
 			if(eeuc_last_path.nodes.back() == goal){
 				goalReached = true;
-				printf("\n!! -- Goal reached -- !!\n");
+				// printf("\n!! -- Goal reached -- !!\n");
 				path_found = eeuc_last_path;
 			}
 		}else{
 			for (int i = 0; i < new_path_list.size(); ++i)
 				if(new_path_list[i].nodes.back() == goal){
 					goalReached = true;
-					printf("\n!! -- Goal reached -- !!\n");
+					// printf("\n!! -- Goal reached -- !!\n");
 					path_found = new_path_list[i];
 				}
 		}
 
-		printf("\nFile : [\n");
-		for (int i = 0; i < file.size(); ++i){
-			printf("  Cost : %6d |", file[i].cost);
-			printf(" Path :[");
-			for (int j = 0; j < file[i].nodes.size(); ++j)
-				printf("%d,", file[i].nodes[j]->getId() );
-				printf("]\n");
-		}
-		printf("]\n");
+		// printf("\nFile : [\n");
+		// for (int i = 0; i < file.size(); ++i){
+		// 	printf("  Cost : %6d |", file[i].cost);
+		// 	printf(" Path :[");
+		// 	for (int j = 0; j < file[i].nodes.size(); ++j)
+		// 		printf("%d,", file[i].nodes[j]->getId() );
+		// 		printf("]\n");
+		// }
+		// printf("]\n");
 
-		if(goalReached == true)
-			for (int i = 0; i < path_found.nodes.size(); ++i)
-				printf("%d - ", path_found.nodes[i]->getId());
-			printf("\n");
+		if(goalReached == true){
+			// for (int i = 0; i < path_found.nodes.size(); ++i)
+			// 	printf("%d - ", path_found.nodes[i]->getId());
+			// printf("\n");
+			result rs;
+			rs.algo = algoSelected;
+			rs.speed = cnt;
+			cnt = 0;
+			rs.memory = max_queue_zise;
+			rs.pth = path_found.nodes.size();
+			rs.cst = path_found.cost;
+			rs.goal = goal->getId();
+			rs.start = start->getId();
+
+			resultSet.push_back(rs);
+
+		}
 	}
 }
+
+void graph::testing(){
+	for (int ALGO = 1; ALGO < 5; ++ALGO)
+		for (int i = 0; i < MAP_SIZE; ++i)
+			for (int j = 0; j < MAP_SIZE; ++j){
+				if(i!=j)
+					if(map[i]->getConCnt() && map[j]->getConCnt()){
+						resetGraph(i, j, ALGO);
+						while(!goalReached)
+							next_hop();
+					}
+			}
+	printResults();
+}
+
+void graph::printResults(){
+	printf("algo; speed; memory; pth; cst; start; goal\n");
+	for (int i = 0; i < resultSet.size(); ++i)
+	{
+		printf("%d;%d;%d;%d;%d;%d;%d \n", 
+			resultSet[i].algo, resultSet[i].speed, 
+			resultSet[i].memory, resultSet[i].pth, resultSet[i].cst, 
+			resultSet[i].start, resultSet[i].goal);
+	}
+
+}
+
 
 //--------------------------------------------------------------
 
