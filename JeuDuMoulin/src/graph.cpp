@@ -297,6 +297,7 @@ void graph::next_hop(){
 				printf("]\n");
 		}
 		printf("]\n");
+		
 
 		if(goalReached == true)
 			for (int i = 0; i < path_found.nodes.size(); ++i)

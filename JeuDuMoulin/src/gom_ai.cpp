@@ -22,6 +22,7 @@ int GOM_Ai::StaticEvaluation(int *game){
 
 	int hisPawns = pHim->getPawnsCnt();
 	int myPawns = pMe->getPawnsCnt();
+	
 	// int eval = (myMills - hisMills) + (myPawns - hisPawns);
 	int eval = 2*(myMills - hisMills) + (myAlmostMills - hisAlmostMills);
 

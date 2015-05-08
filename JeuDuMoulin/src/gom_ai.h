@@ -13,7 +13,7 @@
 #include "graph.h"
 #include "gameDeck.h"
 
-#define MAX_DEPTH 5
+#define MAX_DEPTH 8
 #define NODES 23
 
 #define MILLS 16
