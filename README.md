@@ -1,3 +1,3 @@
 # Machine-Learning
 
-Exercices du cours de Machine Learning - Degeest - ISIB 2015 
+Exercices du cours de Machine Learning - ISIB 2015 
