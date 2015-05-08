@@ -86,6 +86,7 @@ public:
 
 	int StaticEvaluation(int *game);
 	int MinMax(int* game, int deep);
+	int MinMax(int* game, int deep, int alpha, int beta);
 	void GoForMinMax(int* game, int deep);
 
 
@@ -104,6 +105,8 @@ public:
 
 	int cntMills(int* game, int p);
 	int cntAlmostMills(int* game, int p);
+
+
 
 
 };

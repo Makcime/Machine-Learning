@@ -33,15 +33,20 @@ int GOM_Ai::StaticEvaluation(int *game){
 void GOM_Ai::GoForMinMax(int* game, int deep){
 	// printDeck(game);
 	// getchar();
+    int alpha = -1000;
+    int beta=1000;
 	vector <int*> children;
 	children = findChildren(game, 2);
 	int value =0, maxValue = -1000;;
 	for (vector<int*>::iterator child = children.begin(); 
 				child != children.end(); ++child){
-		value = MinMax((*child), deep+1);
-		if(value > maxValue){
+		// value = MinMax((*child), deep+1);
+		value = MinMax((*child), deep+1, alpha, beta);
+		if(value > alpha){
+			alpha = value;
 			this->nextGame = (*child);
-			maxValue = value;
+		}else if(alpha==-1000){
+			this->nextGame = (*child);
 		}
 	}
 }
@@ -80,6 +85,45 @@ int GOM_Ai::MinMax(int* game, int deep){
 			}
 		}
 		return minValue;
+	}
+}
+
+int GOM_Ai::MinMax(int* game, int deep, int alpha, int beta){
+	// printDeck(game);
+	// getchar();
+	vector <int*> children;
+	if(deep == MAX_DEPTH){
+		return StaticEvaluation(game);
+	}
+	// Maximise
+	else if(!(deep %2)){
+		// puts("Maximise");
+		children = findChildren(game, 2);
+		int value =0; //, maxValue = -1000;
+		for (vector<int*>::iterator child = children.begin(); 
+					child != children.end(); ++child){
+			value = MinMax((*child), deep+1, alpha, beta);
+			if(value > alpha){
+				alpha = value;
+				if(alpha>=beta) break;
+			}
+		}
+		return alpha;
+	}
+	// Minimize
+	else{
+		// puts("Minimize");
+		children = findChildren(game, 1);
+		int value =0; //, minValue = 1000;
+		for (vector<int*>::iterator child = children.begin(); 
+					child != children.end(); ++child){
+			value = MinMax((*child), deep+1, alpha, beta);
+			if(value < beta){
+				beta = value;
+				if(alpha>=beta) break;
+			}
+		}
+		return beta;
 	}
 }
 
